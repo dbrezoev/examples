@@ -1,0 +1,373 @@
+{
+  "config": {
+    "pageTitle": "Page Title"
+  },
+  "login": {
+    "systemLogin": "Вход в системата",
+    "user": "Потребителско име",
+    "password": "Парола",
+    "login": "Вход",
+    "logout": "Изход",
+    "loggedInSuccessful": "Успешен вход в системата",
+    "loggedInUnsuccessful": "Неуспешен вход в системата"
+  },
+  "common": {
+    "save": "Запис",
+    "cancel": "Отказ",
+    "search": "Търсене",
+    "status": "Статус",
+    "generalInfo": "Основна информация",
+    "name": "Име",
+    "date": "Дата",
+    "fromDate": "От дата",
+    "toDate": "До дата",
+    "saveSuccessful": "Данните са записани успешно.",
+    "key": "ИД",
+    "dateAdded": "Дата на добавяне",
+    "type": "Тип",
+    "value": "Стойност",
+    "ok": "Ок",
+    "close": "Затвори",
+    "yes": "Да",
+    "no": "Не",
+    "amount": "Сума",
+    "currency": "Валута",
+    "count": "Брой",
+    "connection": "Връзка",
+    "role": "Роля",
+    "selectConnection": "Изберете връзка",
+    "addContactPerson": "Добавяне на лице за контакт",
+    "addConnectedPerson": "Добавяне на свързано лице"
+  },
+  "dp": {
+    "dpScreenMenu": "Debt Purchase",
+    "case": {
+      "caseInfo": {
+        "title": "Информация за случая",
+        "cessionName": "Цесия",
+        "cessionDate": "Дата на цесия",
+        "key": "Идентификатор на случай",
+        "customerId": "Идентификатор на клиент",
+        "outstandingAmount": "Оставаща сума",
+        "initialSum": "Първоначална сума",
+        "currentProduct": "Настоящ продукт",
+        "currentCreditor": "Настоящ кредитор",
+        "previousProduct": "Предходен продукт",
+        "previousCreditor": "Предходен кредитор"
+      },
+      "caseAdditionalInfo": {
+        "title": "Допълнителна информация за случая"
+      },
+      "coDebtors": {
+        "title": "Длъжници",
+        "connectedPeopleCount": "Брой свързани лица",
+        "caseRole": "Роля"
+      },
+      "payments": {
+        "title": "Плащания",
+        "totalPayments": "Общо",
+        "lastPayment": "Последно плащане",
+        "lastPaymentDate": "Дата на последно плащане"
+      },
+      "contract": {
+        "title": "Договор",
+        "hasContracts": "Наличие на договори",
+        "hasScannedCopies": "Наличие на сканирани копия",
+        "creditLimit": "Кредитен лимит",
+        "productCode": "Код на продукт",
+        "productName": "Продукт",
+        "subProductCode": "Код на подпродукт",
+        "subProductName": "Подпродукт"
+      },
+      "limitationStatute": {
+        "title": "Изтичане по давност"
+      },
+      "collateral": {
+        "title": "Обезпечение"
+      },
+      "installment": {
+        "title": "Погасителен план"
+      },
+      "packageCaseData": {
+        "title": "Пакет",
+        "outstandingAmount": "Оставаща сума",
+        "initialAmount": "Просрочена сума",
+        "totalAmount": "Експозиция",
+        "principalAmount": "Главница",
+        "interestAmount": "Лихва",
+        "feeAmount": "Такса",
+        "expenseAmount": "Разноска",
+        "initialBucket": "Първоначален бъкет",
+        "initialDueDays": "Първоначални дни в просрочие",
+        "currentBucket": "Текущ бъкет",
+        "currentDueDays": "Текущи дни в просрочие"
+      },
+      "agency": {
+        "title": "Агенция"
+      },
+      "agent": {
+        "title": "Колектор"
+      },
+      "team": {
+        "title": "Екип"
+      },
+      "fielder": {
+        "title": "Field агент"
+      },
+      "legalAdvisor": {
+        "title": "Юрист"
+      },
+      "stage": {
+        "title": "Етап",
+        "legal": "Съдебен",
+        "field": "Събиране на място",
+        "collection": "Събиране по телефона"
+      },
+      "documents": {
+        "title": "Прикачени документи",
+        "documents": "Документи",
+        "uploadFile": "Прикачи нов файл",
+        "fileName": "Име на файл",
+        "createdOn": "Дата на създаване",
+        "fileUploaded": "Файлът е прикачен успешно",
+        "fileRequired": "Не е избран файл за прикачване"
+      }
+    }
+  },
+  "personInfo": {
+    "person": "Персона",
+    "personInfo": "Инфо за длъжника",
+    "key": "ИД",
+    "ucn": "ЕГН",
+    "surname": "Презиме",
+    "family": "Фамилия",
+    "fullName": "Три имена",
+    "gender": "Пол",
+    "dateAdded": "Дата на добавяне",
+    "birthdate": "Дата на раждане",
+    "contactInfo": "Контактна информация",
+    "phones": "Телефони",
+    "addresses": "Адреси",
+    "other": "Други",
+    "number": "Номер",
+    "usageType": "Вид",
+    "lastDialedDate": "Дата на последно обаждане",
+    "zipCode": "Зип код",
+    "settlement": "Населено място",
+    "originalAddress": "Оригинален адрес",
+    "lastVisitDate": "Последно посещение",
+    "contactData": "Контакт",
+    "lastContactDate": "Последно свързване",
+    "legalPersonType": "Тип"
+  },
+  "results": {
+    "results": "Резултати",
+    "resultInfo": "Информация за резултата",
+    "processType": "Тип на обработка",
+    "causeType": "Основание",
+    "date": "Дата",
+    "code": "Код",
+    "description": "Описание",
+    "name": "Име",
+    "forSum": "За сума",
+    "forDate": "За дата",
+    "comment": "Коментар",
+    "generalInfoTab": "Основна информация",
+    "actionsTab": "Действия",
+    "additionalInfoTab": "Допълнителна информация",
+    "lastContactInfo": "Информация за последен контакт",
+    "user": "Потребител",
+    "addDialog": {
+      "contact": "Контакт",
+      "promise": "Обещание",
+      "promiseForDate": "Обещание за дата",
+      "promiseAmount": "Сума на обещание",
+      "payment": "Плащане",
+      "paymentForDate": "Плащане за дата",
+      "paymentAmount": "Сума на плащане",
+      "paymentIBAN": "ИБАН",
+      "paymentChsi": "ЧСИ",
+      "paymentNotConfirmed": "Непотвърдено плащане",
+      "paymentDetails": "Детайли на плащането",
+      "system": "Система",
+      "accountNumber": "Номер на акаунт",
+      "country": "Държава",
+      "depositorName": "Депозитор",
+      "allPaymentsNot": "Всички непотвърдени плащания",
+      "wait": "Изчакване",
+      "remindForDate": "Напомняне за дата",
+      "additionalInfo": "Допълнителна информация",
+      "messageType": "Тип съобщение",
+      "meetingRole": "Роля в срещата",
+      "phone": "Телефон",
+      "smsInfo": "Информация за СМС",
+      "smsType": "Тип",
+      "smsTemplate": "Шаблон",
+      "smsText": "Текст"
+    }
+  },
+  "phone": {
+    "title": "Телефон",
+    "number": "Номер",
+    "type": "Вид",
+    "usageType": "Тип",
+    "comment": "Коментар",
+    "validity": "Валиден",
+    "dialStatus": "Статус",
+    "customerFound": "Осъществен контакт",
+    "sourceType": "Източник",
+    "copyPhoneSuccessful": "Телефонът е копиран успешно",
+    "copyPhoneUnsuccessful": "Грешка при копиране на телефона"
+  },
+  "address": {
+    "title": "Адрес",
+    "zipCode": "Пощенски код",
+    "address": "Адрес",
+    "type": "Вид",
+    "validity": "Валиден",
+    "visitStatus": "Статус",
+    "comment": "Коментар",
+    "sourceType": "Източник",
+    "settlement": "Населено място"
+  },
+  "other-contact": {
+    "title": "Други контакти",
+    "type": "Вид",
+    "contact": "Контакт",
+    "officialUsage": "Офицаилен контакт",
+    "comment": "Коментар",
+    "validity": "Валиден",
+    "dialStatus": "Статус",
+    "sourceType": "Източник"
+  },
+  "contactInfo": {
+    "title": "Контакти"
+  },
+  "management": {
+    "userManagement": {
+      "users": "Потребители",
+      "typesRolesPrivilegesMenu": "Типове, роли, привилегии",
+      "userConnections": "Връзки",
+      "teamsMenu": "Екипи",
+      "userManagement": "Управление на потребители",
+      "noSelectedUser": "Не е избран потребител",
+      "userPrivileges": "Привилегии на потребителя",
+      "noUserPrivileges": "Избраният потребител няма привилегии",
+      "userTeams": "Екипи на потребителя",
+      "noUserTeams": "Избраният потребител няма екипи",
+      "userRoles": "Роли на потребителя",
+      "noUserRoles": "Избраният потребител няма роли",
+      "roles": "Роли",
+      "hours": "Часове",
+      "username": "Потребителско име",
+      "personKey": "ЕГН",
+      "noUsers": "Няма потребители",
+      "userDetails": "Детайли за потребителя",
+      "selectRole": "Изберете роля",
+      "addUserRole": "Добавяне на роля на потребител",
+      "addUser": "Добавяне на потребител",
+      "selectUserType": "Изберете тип потребител",
+      "email": "Имейл",
+      "userExistsInDb": "Потребител с даденото потребителско име вече съществува в базата!",
+      "noSuchUserInAD": "Потребител с даденото потребителско име не съществува в активната директория!",
+      "typesRolesPrivileges": {
+        "typesRolesPrivileges": "Типове потребители, роли и привилегии",
+        "userTypes": "Типове потребители",
+        "selectedUserTypeRoles": "Роли на избрания тип потребител",
+        "remainingRoles": "Оставащи роли",
+        "roles": "Роли",
+        "selectedRolePrivileges": "Привилегии на избраната роля",
+        "remainingPrivileges": "Оставащи привилегии",
+        "privileges": "Привилегии",
+        "privilegeRoles": "Роли на избраната привилегия",
+        "privilegeUserTypes": "Типове потребител на избраната привилегия",
+        "noRoles": "Няма роли",
+        "noUserTypes": "Няма типове потребители",
+        "noPrivileges": "Няма привилегии",
+        "noSelectedPrivilege": "Не е избрана привилегия",
+        "oneRoleAddedToUserType": "Ролята е добавена към избрания тип потребител.",
+        "allRolesAddedToUserType": "Всички роли са добавени към избрания тип потребител.",
+        "oneRoleRemovedFromUserType": "Ролята е премахната от избрания тип потребител.",
+        "allRolesRemovedFromUserType": "Всички роли са премахнати от избрания тип потребител.",
+        "onePrivilegeAddedToRole": "Привилегията е добавена към избраната роля.",
+        "allPrivilegesAddedToRole": "Всички привилегии са добавени към избраната роля.",
+        "onePrivilegeRemovedFromRole": "Привилегията е премахната от избраната роля.",
+        "allPrivilegesRemovedFromRole": "Всички привилегии са премахнати от избраната роля."
+      },
+      "teams": {
+        "teams": "Екипи",
+        "teamUsers": "Потребители в избрания екип",
+        "title": "Екип",
+        "active": "Активен",
+        "managementsCount": "Мениджъри",
+        "agentsCount": "Агенти",
+        "fullName": "Име",
+        "userName": "Потребителско име",
+        "userType": "Тип",
+        "workHoursInTeam": "Работни часове в екипа",
+        "roleInTeam": "Роля в екипа",
+        "remainingUsers": "Оставащи потребители",
+        "removeUserFromTeamSuccessful": "Успешно премахване на потребител",
+        "removeUserFromTeamUnsuccessful": "Грешка при премахване на потребител"
+      }
+    },
+    "managementMenu": "Management",
+    "caseAssignment": "Възлагане на случаи",
+    "resultCodeAssignment": {
+      "resultCodes": "Кодове на резултати",
+      "noResultCodes": "Няма кодове на резултати",
+      "resultCode": "Код на резултат",
+      "resultCodeControl": "Контрола"
+    }
+  },
+  "user-settings": {
+    "user-settings": "Настройки на потребителя"
+  },
+  "search": {
+    "title": "Търсене",
+    "dateSearch": {
+      "afterDate": "След дата >=",
+      "beforeDate": "Преди дата <"
+    },
+    "person": {
+      "title": "Информация за човек",
+      "workUnitId": "ИД на работната единица",
+      "personId": "ИД на човека",
+      "caseId": "ИД на случая",
+      "personUcn": "ЕГН",
+      "personName": "Име на длъжника",
+      "birthDate": "Рождена дата"
+    },
+    "phone": {
+      "title": "Телефони",
+      "phoneNumber": "Номер на телефона",
+      "phoneType": "Тип на телефона"
+    },
+    "result": {
+      "title": "Резултати по случая",
+      "commentary": "Коментар",
+      "resultDate": "Дата на резултата",
+      "code": "Код на резултата",
+      "name": "Описание на резултата"
+    },
+    "other": {
+      "title": "Други филтри",
+      "resultCauseType": "Причина при добавянето на резултата",
+      "team": "Екип",
+      "userName": "Потребителско име"
+    },
+    "workUnit": {
+      "resultCount": "Намерените работни единици са"
+    }
+  },
+  "navBar": {
+    "reminders": {
+      "title": "Напомняния",
+      "newReminders":"нови напомняния",
+      "newReminder":"ново напомняне",
+      "remindText":"Текст",
+      "time":"Време",
+      "noReminders":"Няма активни напомняния"
+    }
+  }
+}

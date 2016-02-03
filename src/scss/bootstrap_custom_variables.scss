@@ -1,0 +1,48 @@
+$enable-flex: false;
+
+// Colors
+$brand-primary: #2c3e50;
+$brand-success: #62AD10;
+$brand-info: rgba(10, 148, 214, 0.5);
+$brand-warning: #fcc917;
+$brand-danger: #D94324;
+
+$spacer: 0.5rem;
+
+$font-size-root: 12px;
+
+$table-cell-padding: .375rem;
+$table-sm-cell-padding: .15rem;
+
+$btn-padding-x-sm: .375rem;
+$btn-padding-y-sm: .1rem;
+
+$btn-padding-x: .5rem;
+$btn-padding-y: .15rem;
+
+$input-padding-x: .5rem;
+$input-padding-y: .15rem;
+
+$card-spacer-x: 1rem;
+$card-spacer-y: .6rem;
+
+//Styles
+ul {
+  padding-left: 20px;
+}
+
+.nav-stacked .nav-item + .nav-item {
+  margin-top: 0 !important;
+}
+
+form > fieldset {
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  padding: 0 1.4em;
+  margin: 0 0 1.5em 0;
+}
+
+form > fieldset > legend {
+  width: inherit;
+  padding: 0 10px;
+}

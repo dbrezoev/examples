@@ -1,0 +1,9 @@
+template
+  div(style="max-height:200px; overflow-y:scroll")
+    table.table.table-hover(if.bind="models.length > 0")
+      thead
+        tr
+          th(repeat.for="column of columns") ${column.title | t}
+      tbody
+        tr(repeat.for="model of models", click.trigger="rowClicked(model)", class.bind="model.selected === true ? 'table-info' : ''")
+          td(repeat.for="column of columns") ${model[column.name]}

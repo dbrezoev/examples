@@ -1,0 +1,6 @@
+template
+  ul.nav.nav-tabs
+    li.nav-item(repeat.for="navModel of router.navigation")
+      a.nav-link(href.bind="navModel.href", title.bind="navModel.title", class="${ navModel.isActive ? 'active' : '' }") ${navModel.title}
+
+  router-view

@@ -1,0 +1,18 @@
+template
+  ai-dialog
+    ai-dialog-header
+      h2 Edit person names
+    ai-dialog-body
+      div
+        form
+          div.form-group.row
+            label.col-xs-4.control-label First name
+            div.col-xs-8
+              input.form-control(value.bind="person.firstName")
+          div.form-group.row
+            label.col-xs-4.control-label Last name
+            div.col-xs-8
+              input.form-control(value.bind="person.lastName")
+    ai-dialog-footer
+      button(click.trigger="controller.cancel()") Cancel
+      button(click.trigger="controller.ok(person)") Ok

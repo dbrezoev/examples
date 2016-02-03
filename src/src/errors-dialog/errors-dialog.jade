@@ -1,0 +1,14 @@
+template
+  ai-dialog
+    ai-dialog-header
+      i.fa.fa-exclamation-triangle.fa-2x.text-danger
+      | &nbsp;
+      span.h3 ${"errors.errors" | t}
+    ai-dialog-body
+      form.form-horizontal
+        div.form-group.row(repeat.for="error of errors")
+          label.col-xl-1.form-control-label ${$index + 1}.
+          label.col-xl-11.form-control-label ${error}
+
+    ai-dialog-footer
+      cancel-button(on-click.call="controller.cancel()", name="${'common.close' | t }")

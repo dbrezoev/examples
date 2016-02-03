@@ -1,0 +1,23 @@
+﻿@import "bootstrap_custom_variables";
+@import "bootstrap_do_not_edit_anything/bootstrap";
+@import "../jspm_packages/npm/font-awesome@4.5.0/scss/font-awesome";
+@import "aurelia";
+
+// todo: check this!
+// ==Reminders==
+@keyframes blink {
+  0% { background-color: white; color: black;}
+  100% { background-color: green; color:white;}
+}
+@-webkit-keyframes blink {
+  0% { background-color: white; color: black;}
+  100% {background-color: green; color:white; }
+}
+.blink {
+  -webkit-animation: blink 1s linear infinite;
+  -moz-animation: blink 1s linear infinite;
+  -ms-animation: blink 1s linear infinite;
+  -o-animation: blink 1s linear infinite;
+  animation: blink 1s linear infinite;
+}
+// ============

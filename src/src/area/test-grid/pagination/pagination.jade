@@ -1,0 +1,21 @@
+template
+  h1 Pagination 
+
+  button(click.trigger="addItem()") Add item
+    
+  button(click.trigger="changeItem()") change item
+  
+  grid(data.bind="data", height="150", style="width: 900px", pageable.bind="true")
+    grid-row
+      grid-col(heading="ID", field="id", style="width:200px;", filter="input")
+        | This is a
+        i column template
+        | : 
+        strong ${ $item.id }
+
+      grid-col(heading="Name", field="name")
+        button.btn.btn-primary(click.delegate="$parent.call('itemClicked', $item)") 
+          | Click me I'm ... ${ $item.name }!
+
+      grid-col(heading="Test", field="name")
+        a(href="#") Jump to somewhere

@@ -1,0 +1,40 @@
+.select3 {
+  position: relative;
+}
+
+.select3 .form-control[readonly] {
+  background-color: white;
+}
+
+.select3 .form-control:disabled {
+  background-color: #eceeef;
+}
+
+.select3-dropdown {
+  position: absolute;
+  width: 100%;
+  z-index: 99999;
+  border: 1px solid lightgrey;
+}
+
+.select3-dropdown ul {
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: white;
+  list-style: none;
+  padding: 0 0 0 0.75rem;
+  margin: 0;
+  cursor: pointer;
+}
+
+.select3-dropdown ul li.hovered {
+  background-color: deepskyblue;
+}
+
+.select3-dropdown ul li.selected {
+  background-color: gainsboro;
+}
+
+.select3-no-results-message {
+  font-weight: bold;
+}

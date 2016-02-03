@@ -1,0 +1,20 @@
+﻿doctype html
+html
+  head
+    //base(href="http://localhost:9009")
+    title Matrix 3
+    meta(charset='utf-8')
+    link(rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon")
+    link(rel="stylesheet" type="text/css" href="styles/styles.css")
+  body(aurelia-app="main")
+    div.splash
+      // todo: i18n
+      div.message Matrix 3
+      img(src="assets/images/loader.gif")
+
+    // todo: on release build change to minifiyed version
+    script(src="jspm_packages/github/hubspot/tether@1.1.1/dist/js/tether.js")
+    script(src="jspm_packages/github/petkaantonov/bluebird@3.1.1/js/browser/bluebird.js")
+    script(src="jspm_packages/system.js")
+    script(src="config.js")
+    script System.import('aurelia-bootstrapper');

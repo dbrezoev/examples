@@ -1,0 +1,11 @@
+template
+  ai-dialog
+    ai-dialog-header
+      h4 ${title}
+    ai-dialog-body
+      p(if.bind="msg") ${msg}
+      compose(if.bind="viewModel", view-model.bind="viewModel")
+    ai-dialog-footer
+      button(if.bind="viewModel", click.trigger="controller.ok(model)", class.bind="okBtnClass") ${okBtnText}
+      button(if.bind="!viewModel", click.trigger="controller.ok()", class.bind="okBtnClass") ${okBtnText}
+      button.btn.btn-secondary(if.bind="showCancelButton", click.trigger="controller.cancel()") ${cancelBtnText}

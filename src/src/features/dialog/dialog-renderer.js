@@ -1,0 +1,194 @@
+import {ViewSlot} from 'aurelia-framework';
+
+let currentZIndex = 1040;
+let transitionEvent = (function() {
+  let t;
+  let el = document.createElement('fakeelement');
+
+  let transitions = {
+    'transition': 'transitionend',
+    'OTransition': 'oTransitionEnd',
+    'MozTransition': 'transitionend',
+    'WebkitTransition': 'webkitTransitionEnd'
+  };
+
+  for (t in transitions) {
+    if (el.style[t] !== undefined) {
+      return transitions[t];
+    }
+  }
+})();
+
+function getNextZIndex() {
+  return ++currentZIndex;
+}
+
+export let globalSettings = {
+  lock: true,
+  centerHorizontalOnly: false
+};
+
+export class DialogRenderer {
+  defaultSettings = globalSettings;
+
+  constructor() {
+    this.dialogControllers = [];
+    document.addEventListener('keyup', e => {
+      if (e.keyCode === 27) {
+        let top = this.dialogControllers[this.dialogControllers.length - 1];
+        if (top && top.settings.lock !== true) {
+          top.cancel();
+        }
+      }
+    });
+  }
+
+  createDialogHost(dialogController) {
+    let settings = dialogController.settings;
+    let body = document.body;
+    let modalOverlay = undefined;
+
+    if (settings.isModal) {
+      modalOverlay = document.createElement('ai-dialog-overlay');
+      modalOverlay.style.zIndex = getNextZIndex();
+      document.body.appendChild(modalOverlay);
+    }
+
+    let modalContainer = document.createElement('ai-dialog-container');
+    modalContainer.style.zIndex = getNextZIndex();
+    document.body.appendChild(modalContainer);
+
+    dialogController.slot = new ViewSlot(modalContainer, true);
+    dialogController.slot.add(dialogController.view);
+
+    dialogController.showDialog = () => {
+      this.dialogControllers.push(dialogController);
+
+      dialogController.slot.attached();
+      dialogController.centerDialog();
+
+      if (settings.isModal) {
+        modalOverlay.onclick = () => {
+          if (!settings.lock) {
+            dialogController.cancel();
+          } else {
+            return false;
+          }
+        };
+      } else {
+        const modalHeader = modalContainer.firstElementChild.firstElementChild;
+        modalHeader.onmousedown = ((event) => {
+          modalContainer.classList.add('dragging');
+          modalContainer.style.zIndex = getNextZIndex();
+        }).bind(this);
+
+        this.previousMouseEvent = undefined;
+
+        document.onmousemove = ((event) => {
+          let dragging = modalContainer.classList.contains('dragging');
+          if (dragging) {
+            let movementX = event.movementX || (this.previousMouseEvent !== undefined ? event.screenX - this.previousMouseEvent.screenX : 0);
+            let movementY = event.movementY || (this.previousMouseEvent !== undefined ? event.screenY - this.previousMouseEvent.screenY : 0);
+            modalContainer.style.top = modalContainer.offsetTop + movementY + 'px';
+            modalContainer.style.left = modalContainer.offsetLeft + movementX + 'px';
+            this.previousMouseEvent = event;
+          }
+        }).bind(this);
+
+        modalContainer.onmouseup = (() => {
+          modalContainer.classList.remove('dragging');
+          this.previousMouseEvent = undefined;
+        }).bind(this);
+      }
+
+      return new Promise((resolve) => {
+        modalContainer.addEventListener(transitionEvent, onTransitionEnd);
+
+        function onTransitionEnd(e) {
+          if (e.target !== modalContainer) {
+            return;
+          }
+          modalContainer.removeEventListener(transitionEvent, onTransitionEnd);
+          resolve();
+        }
+
+        if (settings.isModal) {
+          modalOverlay.classList.add('active');
+        }
+        modalContainer.classList.add('active');
+        body.classList.add('ai-dialog-open');
+      });
+    };
+
+    dialogController.hideDialog = () => {
+      let i = this.dialogControllers.indexOf(dialogController);
+      if (i !== -1) {
+        this.dialogControllers.splice(i, 1);
+      }
+
+      return new Promise((resolve) => {
+        modalContainer.addEventListener(transitionEvent, onTransitionEnd);
+
+        function onTransitionEnd() {
+          modalContainer.removeEventListener(transitionEvent, onTransitionEnd);
+          resolve();
+        }
+
+        if (settings.isModal) {
+          modalOverlay.classList.remove('active');
+        }
+
+        modalContainer.classList.remove('active');
+
+        if (this.dialogControllers.length === 0) {
+          body.classList.remove('ai-dialog-open');
+        }
+      });
+    };
+
+    dialogController.destroyDialogHost = () => {
+      if (settings.isModal) {
+        document.body.removeChild(modalOverlay);
+      }
+      document.body.removeChild(modalContainer);
+      dialogController.slot.detached();
+      return Promise.resolve();
+    };
+
+    dialogController.centerDialog = () => {
+      let child = modalContainer.children[0];
+
+      modalContainer.style.width = child.offsetWidth + 20 + 'px';
+      //modalContainer.style.height = child.offsetHeight + 20 + 'px';
+      const modalContainerHeight = child.offsetHeight + 20;
+
+      // todo: high priority: Tsvety Fix! IE, chrome, FF
+      //modalContainer.style.width = "600px";
+      //modalContainer.style.height = "400px";
+
+      let vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+      modalContainer.style.left = Math.max((vw - modalContainer.offsetWidth) / 2, 0) + 'px';
+
+      if (!settings.centerHorizontalOnly) {
+        let vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        // Left at least 30px from the top
+        //modalContainer.style.top = Math.max((vh - modalContainer.offsetHeight) / 2, 30) + 'px';
+        modalContainer.style.top = Math.max((vh - modalContainerHeight) / 2, 30) + 'px';
+      }
+    };
+
+    return Promise.resolve();
+  }
+
+  showDialog(dialogController) {
+    return dialogController.showDialog();
+  }
+
+  hideDialog(dialogController) {
+    return dialogController.hideDialog();
+  }
+
+  destroyDialogHost(dialogController) {
+    return dialogController.destroyDialogHost();
+  }
+}

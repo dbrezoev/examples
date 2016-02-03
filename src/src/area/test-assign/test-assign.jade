@@ -1,0 +1,22 @@
+template
+  assign(left-items.bind="unassignedItems",
+    right-items.bind="assignedItems",
+    move-left-handler.bind="moveLeftHandler.bind($this)",
+    move-right-handler.bind="moveRightHandler.bind($this)",
+    move-all-left-handler.bind="moveAllLeftHandler.bind($this)",
+    move-all-right-handler.bind="moveAllRightHandler.bind($this)")
+
+  //assign(unassigned-items.bind="unassignedItems",
+    assigned-items.bind="assignedItems",
+    move-handlers.bind="moveHandlers")
+
+  //div.content-host
+    div.col-xl-6.content-full-height
+      ul
+        li(repeat.for="x of unassignedItems")
+          | ${x.name}
+
+    div.col-xl-6.content-full-height
+      ul
+        li(repeat.for="x of unassignedItems")
+          | ${x.name}

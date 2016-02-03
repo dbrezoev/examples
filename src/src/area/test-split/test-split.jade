@@ -1,0 +1,14 @@
+template
+  div.main-component(style="overflow: hidden;")
+    split-horizontal(sizes.one-time="[70, 30]")
+      div
+        h1 top
+        //split-vertical(sizes.one-time="[40, 60]")
+          div
+            router-view(name="person")
+          div
+            router-view(name="case-info")
+      div
+        h1 bottom
+        //router-view(name="results")
+

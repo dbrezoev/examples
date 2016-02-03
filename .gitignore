@@ -1,0 +1,14 @@
+node_modules
+jspm_packages
+bower_components
+.idea
+*.html
+*.css
+#intellij project file
+frontend.iml
+.DS_Store
+dist/
+*.orig
+src/backend/play-scala/annotations-sample.pdf
+src/backend/play-scala/filled-form.pdf
+src/backend/play-scala/form.pdf

@@ -1,0 +1,8 @@
+template
+  require(from="Eonasdan/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css")
+  require(from="../style.css")
+
+  div.input-group.date
+    input.form-control(type="text", value.bind="value")
+    span.input-group-addon
+      span.fa.fa-clock-o

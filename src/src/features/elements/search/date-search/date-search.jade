@@ -1,0 +1,8 @@
+template
+  div.form-group.row
+    label.form-control-label.col-lg-2 ${'search.dateSearch.afterDate' | t}
+    div.col-lg-4
+      datepicker(value.two-way="startDate")
+    label.form-control-label.col-lg-2 ${'search.dateSearch.beforeDate' | t}
+    div.col-lg-4
+      datepicker(value.two-way="endDate")
