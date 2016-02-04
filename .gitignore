@@ -15,3 +15,6 @@ src/backend/play-scala/form.pdf
 .tern-port
 
 .#*
+
+**/.sass-cache
+**/.sass-cache/*

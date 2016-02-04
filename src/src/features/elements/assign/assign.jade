@@ -1,24 +1,28 @@
 template
   require(from="./styles/assign.css")
-  div.row.assign
-    div.col-sm-5.assign-container
-      table.table.table-hover
-        tbody
-          tr(class="assign-element ${leftItem.selected ? 'table-info' : ''}",
-          repeat.for="leftItem of leftItems",
-          click.trigger="select(leftItem.id)")
-            td ${leftItem.name}
 
-    div.col-sm-2.text-center
-      button.assign-button.btn.fa.fa-angle-double-right(click.trigger="moveAllRight()", disabled.bind="leftItems.length === 0")
-      button.assign-button.btn.fa.fa-angle-right(click.trigger="moveRight()", disabled.bind="moveRightDisabled")
-      button.assign-button.btn.fa.fa-angle-left(click.trigger="moveLeft()", disabled.bind="moveLeftDisabled")
-      button.assign-button.btn.fa.fa-angle-double-left(click.trigger="moveAllLeft()", disabled.bind="rightItems.length === 0")
+  grid.col-lg-5(data.bind="leftItems",
+    height="auto",
+    selection="single",
+    on-select.call="select($event)",
+    selected-item.bind="selectedItem",
+    style="overflow-y: hidden")
+      grid-row
+        grid-col(heading.bind="leftHeading", nosort)
+          span ${$item.name}
 
-    div.col-sm-5.assign-container
-      table.table.table-hover
-        tbody
-          tr(class="assign-element ${rightItem.selected ? 'table-info' : ''}",
-            repeat.for="rightItem of rightItems",
-            click.trigger="select(rightItem.id)")
-            td ${rightItem.name}
+  div.col-lg-2.text-center
+    button.assign-button.btn.fa.fa-angle-double-right(click.trigger="moveAllRight()", disabled.bind="leftItems.length === 0")
+    button.assign-button.btn.fa.fa-angle-right(click.trigger="moveRight()", disabled.bind="moveRightDisabled")
+    button.assign-button.btn.fa.fa-angle-left(click.trigger="moveLeft()", disabled.bind="moveLeftDisabled")
+    button.assign-button.btn.fa.fa-angle-double-left(click.trigger="moveAllLeft()", disabled.bind="rightItems.length === 0")
+
+  grid.col-lg-5(data.bind="rightItems",
+    height="auto",
+    selection="single",
+    on-select.call="select($event)",
+    selected-item.bind="selectedItem",
+    style="overflow-y: hidden")
+      grid-row
+        grid-col(heading.bind="rightHeading", nosort)
+          span ${$item.name}

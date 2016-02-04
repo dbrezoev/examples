@@ -1,20 +1,4 @@
-.assign {
-  /*margin: 10px;*/
-}
-
-.assign .assign-container {
-  border: 1px solid grey;
-  border-radius: 5px;
-  height: 200px;
-  overflow-y: auto;
-}
-
-.assign .assign-element {
-  cursor: pointer;
-  padding: 1px;
-}
-
-.assign .assign-button {
+.assign-button {
   display: block;
   width: 100%;
   margin: 2px;

@@ -1,12 +1,11 @@
-import {inject, customElement, bindable, bindingMode} from 'aurelia-framework';
+import {inject, customElement, bindable, bindingMode, BindingEngine} from 'aurelia-framework';
 import {Tokenizers} from './tokenizers'
 import {Datum} from './datum'
 import {KEYS} from './keys'
 
 @customElement('select3')
-@inject(Element)
+@inject(Element, BindingEngine)
 
-// todo: close dropdown on click outside
 // todo: max-height in dialog
 export class Select3 {
   @bindable items = [];
@@ -28,22 +27,36 @@ export class Select3 {
     modelValueBind: false,
     sort: false,
     sortField: '',
-    disableClear: false
+    disableClear: false,
+    emptyValue: null,
+    selectHoveredOnCloseDropdown: false
   };
 
-  constructor(element) {
+  constructor(element, bindingEngine) {
     this.element = element;
+    this.bindingEngine = bindingEngine;
   }
 
   bind() {
     this.opts = Object.assign(this.opts, this.options);
-    this.search(this.searchedItem);
+    this.itemsChanged();
+  }
+
+  unbind() {
+    if (this.itemsCollectionSubscription !== undefined) {
+      this.itemsCollectionSubscription.dispose();
+    }
   }
 
   valueChanged() {
+    if (this.value === undefined || this.value === null) {
+      this.selectedItemName = null;
+      return;
+    }
+
+    let valueId = this.opts.modelValueBind ? this.value[this.opts.id] : this.value;
     let selectedDatum = this.filteredData.find(datum => {
-      let itemValue = this.opts.modelValueBind ? datum.item : datum.item[this.opts.id];
-      return itemValue === this.value;
+      return datum.item[this.opts.id] === valueId;
     });
 
     if (selectedDatum) {
@@ -54,7 +67,28 @@ export class Select3 {
   }
 
   itemsChanged() {
+    this._subscribeToItemsCollectionChanges();
+    this.reconstructItems();
+    this.valueChanged();
+  }
+
+  reconstructItems() {
+    this.items.forEach(i => {
+      i._escapedName = this._escapeHtml(i[this.opts.name]);
+    });
     this.search(this.searchedItem);
+  }
+
+  _subscribeToItemsCollectionChanges() {
+    if (this.itemsCollectionSubscription !== undefined) {
+      this.itemsCollectionSubscription.dispose();
+    }
+
+    this.itemsCollectionSubscription = this.bindingEngine
+      .collectionObserver(this.items)
+      .subscribe(items => {
+        this.reconstructItems();
+      });
   }
 
   filteredDataChanged() {
@@ -67,7 +101,7 @@ export class Select3 {
 
   clearValue() {
     if (!this.opts.disableClear) {
-      this.value = null;
+      this.value = this.opts.emptyValue;
     }
   }
 
@@ -87,6 +121,10 @@ export class Select3 {
 
   closeDropdown() {
     this.isDropdownOpen = false;
+
+    if (this.opts.selectHoveredOnCloseDropdown === true) {
+      this.selectHoveredItem();
+    }
   }
 
   toggleDropdown() {
@@ -109,7 +147,9 @@ export class Select3 {
 
   selectItem(datum) {
     this.value = this.opts.modelValueBind ? datum.item : datum.item[this.opts.id];
-    this.closeDropdown();
+    if (this.isDropdownOpen === true) {
+      this.closeDropdown();
+    }
   }
 
   onValueInputKeyPressed(event) {
@@ -233,7 +273,7 @@ export class Select3 {
   }
 
   search(query) {
-    if(this.items === undefined) {
+    if (this.items === undefined) {
       this.filteredData = [];
       return;
     }
@@ -323,5 +363,17 @@ export class Select3 {
       if (p.every(x => x[field] !== c[field])) p.push(c);
       return p;
     }, []);
+  }
+
+  _escapeHtml(text) {
+    let map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    };
+
+    return text.replace(/[&<>"']/g, m => map[m]);
   }
 }

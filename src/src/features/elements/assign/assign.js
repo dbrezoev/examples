@@ -6,84 +6,71 @@ import {customElementHelper} from 'utils';
 export class Assign {
   @bindable({defaultBindingMode: bindingMode.twoWay}) leftItems;
   @bindable({defaultBindingMode: bindingMode.twoWay}) rightItems;
+  @bindable leftHeading;
+  @bindable rightHeading;
 
   constructor(element) {
     this.element = element;
-    this.selectedItemId;
+    this.selectedItem;
   }
 
-  @computedFrom('selectedItemId')
+  @computedFrom('selectedItem')
   get moveRightDisabled() {
     let moveRightDisabled = this.leftItems.every(item => {
-      return item.id !== this.selectedItemId;
+      return item !== this.selectedItem;
     });
     return moveRightDisabled;
   }
 
-  @computedFrom('selectedItemId')
+  @computedFrom('selectedItem')
   get moveLeftDisabled() {
     let moveLeftDisabled = this.rightItems.every(item => {
-      return item.id !== this.selectedItemId;
+      return item !== this.selectedItem;
     });
     return moveLeftDisabled;
   }
 
-  select(itemId) {
-    this.selectedItemId = itemId;
-
-    let allItems = this.leftItems.concat(this.rightItems);
-    allItems.forEach(item => {
-      item.selected = item.id === itemId;
-    });
+  select(item) {
+    this.selectedItem = item;
 
     customElementHelper.dispatchEvent(this.element, 'item-click', {
-      itemId: this.selectedItemId
+      item: this.selectedItem
     });
-
-    if (typeof(this.selectItemHandler) === 'function') {
-      this.selectItemHandler(this.selectedItemId);
-    }
   }
 
   moveLeft() {
     let fromCollection = this.rightItems;
     let toCollection = this.leftItems;
 
-    let item = this._remove(fromCollection, this.selectedItemId);
+    let item = this._remove(fromCollection, this.selectedItem);
     this._add(toCollection, item);
 
     customElementHelper.dispatchEvent(this.element, 'move-left-click', {
-      itemId: this.selectedItemId
+      item: this.selectedItem
     });
 
-
-    item.selected = false;
-    this.selectedItemId = undefined;
+    this.selectedItem = undefined;
   }
 
   moveRight() {
     let fromCollection = this.leftItems;
     let toCollection = this.rightItems;
 
-    let item = this._remove(fromCollection, this.selectedItemId);
+    let item = this._remove(fromCollection, this.selectedItem);
     this._add(toCollection, item);
 
     customElementHelper.dispatchEvent(this.element, 'move-right-click', {
-      itemId: this.selectedItemId
+      item: this.selectedItem
     });
 
-    item.selected = false;
-    this.selectedItemId = undefined;
+    this.selectedItem = undefined;
   }
 
   moveAllLeft() {
     let allItems = this.leftItems.concat(this.rightItems);
 
-    allItems.forEach(item => {
-      item.selected = false;
-    });
 
-    this.selectedItemId = undefined;
+    this.selectedItem = undefined;
 
     this.leftItems = allItems;
     this.rightItems = [];
@@ -93,12 +80,8 @@ export class Assign {
 
   moveAllRight() {
     let allItems = this.leftItems.concat(this.rightItems);
-
-    allItems.forEach(item => {
-      item.selected = false;
-    });
-
-    this.selectedItemId = undefined;
+    
+    this.selectedItem = undefined;
 
     this.rightItems = allItems;
     this.leftItems = [];
@@ -110,9 +93,9 @@ export class Assign {
     toContainer.push(item);
   }
 
-  _remove(fromContainer, itemId) {
-    let index = fromContainer.findIndex(item => {
-      return item.id === itemId;
+  _remove(fromContainer, item) {
+    let index = fromContainer.findIndex(i => {
+      return i === item;
     });
 
     let removedItem;

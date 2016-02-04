@@ -7,5 +7,5 @@ gulp.task('lint', function() {
   return gulp.src(paths.source)
     .pipe(eslint())
     .pipe(eslint.format())
-    //.pipe(eslint.failOnError());
+    .pipe(eslint.failOnError());
 });

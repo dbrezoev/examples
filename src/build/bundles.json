@@ -2,13 +2,15 @@
   "bundles": {
     "dist/app-build": {
       "includes": [
-        "[**/*]",
-        "**/*.html!text",
-        "**/*.css!text"
+        "[*.js]",
+        "*.html!text",
+        "*.css!text"
       ],
       "options": {
         "inject": true,
-        "minify": true
+        "minify": true,
+        "depCache": true,
+        "rev": true
       }
     },
     "dist/aurelia": {
@@ -16,7 +18,6 @@
         "aurelia-framework",
         "aurelia-bootstrapper",
         "aurelia-fetch-client",
-        "aurelia-http-client",
         "aurelia-router",
         "aurelia-animator-css",
         "aurelia-templating-binding",
@@ -25,31 +26,14 @@
         "aurelia-loader-default",
         "aurelia-history-browser",
         "aurelia-logging-console",
-        "twbs/bootstrap",
-        "aurelia-validation",
-        "aurelia-validation/resources/bg-BG",
-        "aurelia-i18n",
-        "text",
-        "select2",
-        "nathancahill/Split.js",
-        "select2/css/select2.css!text",
-        "Eonasdan/bootstrap-datetimepicker",
-        "Eonasdan/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css!text",
-        "moment",
-        "moment/locale/bg.js",
-        "CodeSeven/toastr",
-        "CodeSeven/toastr/build/toastr.min.css!text",
-        "features/dialog/styles/dialog.css!text",
-        "features/elements/select2/select2_custom.css!text",
-        "features/elements/loading-mask/loading-mask.css!text",
-        "features/elements/assign/styles/assign.css!text",
-        "features/elements/splitter/styles/splitter.css!text"
+        "bootstrap",
+        "bootstrap/css/bootstrap.css!text"
       ],
       "options": {
         "inject": true,
-        "minify": true
+        "minify": false,
+        "rev": true
       }
     }
   }
 }
-

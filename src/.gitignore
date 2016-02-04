@@ -10,3 +10,4 @@ coverage
 !src/**/*.css
 .sass-cache
 /styles
+test/e2e/dist

@@ -30,15 +30,15 @@ template
               div.filter-select(if.bind="$column.filter === 'select'")
                 select(value.bind="$column.filterValue", change.trigger="$column.updateFilter()")
                   option(model.bind="undefined") All...
-                  option(repeat.for="item of $column.items" model.bind="item.id") ${item.name}
+                  option(repeat.for="item of $column.items", model.bind="item.id") ${item.name}
 
       // Content table
       div.grid-content-container
-        table.table.table-hover.table-striped.table-sm.selectable(show.bind="!showNoRowsMessage || (showNoRowsMessage && count > 0)")
+        table.table.table-hover.table-striped.table-sm.selectable(show.bind="!showNoRowsMessage || (showNoRowsMessage && storeManager.getDataStore().count > 0)")
           tbody
             tr(role="button", click.trigger = "$parent.rowClicked($item)", class.bind="$item._selected && $parent.selection? 'table-info': ''")
         // No rows message
-        div.alert.alert-warning(show.bind="showNoRowsMessage && count === 0") ${ noRowsMessage }
+        div.alert.alert-warning(show.bind="showNoRowsMessage && storeManager.getDataStore().count === 0") ${ noRowsMessage | t }
 
       div.grid-overlay(if.bind="loading")
       div.progress.grid-progress-indicator(if.bind="loading")
@@ -53,4 +53,4 @@ template
             select.form-control(value.bind="pageSize")
               option(value.bind="size", repeat.for="size of pageSizes") ${ size === '*' ? 'All' : size }
             span &nbsp; items per page
-        span.grid-summary(if.bind="showPagingSummary") Showing ${ dataStore.firstVisibleItem } - ${ dataStore.lastVisibleItem } of ${ dataStore.count } items
+        span.grid-summary(if.bind="showPagingSummary") Showing ${ storeManager.getDataStore().firstVisibleItem } - ${ storeManager.getDataStore().lastVisibleItem } of ${ storeManager.getDataStore().count } items
