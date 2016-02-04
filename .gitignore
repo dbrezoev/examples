@@ -12,3 +12,6 @@ dist/
 src/backend/play-scala/annotations-sample.pdf
 src/backend/play-scala/filled-form.pdf
 src/backend/play-scala/form.pdf
+.tern-port
+
+.#*

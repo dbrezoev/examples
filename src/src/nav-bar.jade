@@ -1,35 +1,10 @@
 template
   nav.navbar.navbar-fixed-top.navbar-dark.bg-primary
-    a.nav.navbar-brand(href="#") Matrix3
+    a.nav.navbar-brand(href="#") Examples
 
-    div(show.bind="isUserLoggedIn")
-      ul.nav.navbar-nav
+    ul.nav.navbar-nav
         template(repeat.for="navModel of router.navigation")
-          li.nav-item(class="${ navModel.isActive ? 'active' : '' }", if.one-way="checkAccess(navModel)")
+          li.nav-item(class="${ navModel.isActive ? 'active' : '' }")
             a.nav-link(href.bind="navModel.href", title.bind="navModel.title")
               i.fa(class.bind="navModel.config.faicon", if.bind="navModel.config.faicon") &nbsp;
               span(if.bind="!navModel.config.iconOnly") ${navModel.title}
-
-      ul.nav.navbar-nav.pull-xl-right
-        li.nav-item(class="${ navModel.isActive ? 'active' : '' }")
-          a.nav-link(route-href="route: userSettingsUrl", mouseover.trigger="hoverSettings(true)", mouseout.trigger="hoverSettings(false)")
-            i.fa.fa-cog(class="${hovered ? 'fa-spin' : ''}")
-            | &nbsp;
-            span ${userName}
-        li.nav-item
-          a.nav-link(href="#", title.bind="label.logout", click.delegate="logout()")
-            i.fa.fa-arrow-circle-o-right.fa-lg
-        li.nav-item
-          a.nav-link
-            i.fa.fa-circle-o-notch(class="${ router.isNavigating ? 'fa-spin' : '' }")
-
-      ul.nav.navbar-nav.pull-xl-right
-        li.nav-item
-          input.nav-link.form-control(type="text", placeholder="Търси", value.bind="searchTerm", focus.bind="hasFocus", style="color: #55595c;")
-        li.nav-item(style="margin-left: 3px")
-          a.nav-link.btn.btn-primary(type="submit", click.delegate="search()")
-            i.fa.fa-search
-        | &nbsp;
-        | &nbsp;
-        | &nbsp;
-

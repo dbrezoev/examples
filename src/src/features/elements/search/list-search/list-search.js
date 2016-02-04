@@ -1,5 +1,5 @@
 import {inject, customElement, bindable} from 'aurelia-framework';
-import {searchOperator} from 'enum/search-operator';
+import {searchOperator} from '../search-operator';
 
 @customElement('list-search')
 @inject(Element)

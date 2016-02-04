@@ -2,8 +2,6 @@ import {ChildRouter} from 'libs/child-router/child-router';
 import {Session} from 'service';
 import {inject, useView} from 'aurelia-framework';
 import {I18N} from 'aurelia-i18n';
-//import {accessRight} from 'enum/access-right';
-//import {activationStrategy} from 'aurelia-router';
 
 @inject(Session, I18N)
 @useView('libs/child-router/tabs-router.html')
