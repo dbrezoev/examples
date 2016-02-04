@@ -1,6 +1,11 @@
-import {inject, customAttribute, bindable, noView} from 'aurelia-framework';
+import {
+  TaskQueue, Container, inject, customAttribute, bindable,
+  CompositionEngine, ViewSlot, ViewResources, customElement, View
+} from 'aurelia-framework';
 
-@noView()
+//import {DOM} from 'aurelia-pal';
+
+//@noView()
 @customAttribute('popover')
 @inject(Element)
 export class Popover {
@@ -8,17 +13,19 @@ export class Popover {
   @bindable content;
   @bindable placement;
   @bindable disabled = false;
+  @bindable view = '';
 
   constructor(element) {
     this.element = element;
     this.placement = 'auto';
   }
 
-  detached() {
-    this.$element.popover('dispose');
+  created(owningView, myView) {
+    debugger;
   }
 
-  bind() {
+  bind(bindingContext, overrideContext) {
+    debugger;
     this.$element = $(this.element);
 
     if(this.disabled){
@@ -30,6 +37,20 @@ export class Popover {
 
     this.$element.popover(this._getOptions());
   }
+
+  attached() {
+    debugger;
+  }
+
+  detached() {
+    debugger;
+    this.$element.popover('dispose');
+  }
+
+  unbind() {
+    debugger;
+  }
+
 
   _getOptions() {
     return {
