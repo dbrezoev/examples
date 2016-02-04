@@ -1,9 +1,8 @@
 import {bindable} from 'aurelia-framework';
 
 export class TestPopover {
-  @bindable x;
-
   constructor() {
+    this.popoverTestBinding = 'testing binsfrwjrwerhwrlwehrwklrwjrweklrjwrwelkerjwelrjwerlkewrjdig';
     this.title = 'Title';
     this.content = 'Content1';
 
@@ -103,6 +102,7 @@ export class TestPopover {
     ];
 
     this.selectedPerson = this.people[2];
+    window.x = this;
   }
 
   click() {
