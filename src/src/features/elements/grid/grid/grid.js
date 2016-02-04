@@ -4,6 +4,7 @@ import {customElement, TaskQueue, useView, bindable, inject, BindingEngine,
 import {processUserTemplate} from './proccess-user-template';
 import {ColumnDefinitionFactory} from '../column/column-definition-factory';
 import {StoreManager} from '../store/store-manager';
+import {customElementHelper} from 'utils';
 
 @customElement('grid')
 @processContent(processUserTemplate)
@@ -30,7 +31,6 @@ export class Grid {
 
   // Selection
   @bindable selection = false; // single || multiselect
-  @bindable onSelect = null; // callback
   @bindable selectedItem = undefined;
   lastSelectedItem = undefined;
 
@@ -110,6 +110,7 @@ export class Grid {
     this.rowTemplate.appendChild(row);
 
     this._buildTemplates();
+    this.selectedItemChanged(this.selectedItem);
   }
 
   attached() {
@@ -238,21 +239,46 @@ export class Grid {
   }
 
   /* === Change handlers === */
-  rowClicked($item, selectRow) {
-    selectRow = selectRow !== undefined ? selectRow : !$item._selected;
-    if (this.onSelect !== null) {
-      this.onSelect($item, selectRow);
+  rowClicked($item) {
+    if (this.selection !== false) {
+      if ($item._selected === true) {
+        this.deselectRow($item);
+      } else {
+        this.selectRow($item);
+      }
+    }
+  }
+
+  selectRow($item, noEventNeeded) {
+    if(!$item.id){
+      return;
     }
 
-    if (this.selection !== false) {
-      $item._selected = selectRow;
-      if (this.selection === 'single') {
-        if (this.lastSelectedItem !== undefined && this.lastSelectedItem !== $item) {
-          this.lastSelectedItem._selected = false;
-        }
+    if (this.selection === 'single' && this.lastSelectedItem !== undefined) {
+      this.deselectRow(this.lastSelectedItem, noEventNeeded);
+    }
 
-        this.lastSelectedItem = $item;
-      }
+    $item._selected = true;
+    this.lastSelectedItem = $item;
+
+    if(noEventNeeded !== true) {
+      customElementHelper.dispatchEvent(this.element, 'select-grid-row', {
+        $item: $item
+      });
+    }
+  }
+
+  deselectRow($item, noEventNeeded) {
+    if(!$item.id){
+      return;
+    }
+
+    $item._selected = false;
+
+    if(noEventNeeded !== true) {
+      customElementHelper.dispatchEvent(this.element, 'deselect-grid-row', {
+        $item: $item
+      });
     }
   }
 
@@ -261,9 +287,10 @@ export class Grid {
       return;
     }
 
-    if (newValue) {
-      if (newValue !== this.lastSelectedItem || !this.lastSelectedItem._selected) {
-        this.rowClicked(newValue, true);
+    if (newValue && newValue.id) {
+      if (newValue !== this.lastSelectedItem) {
+        this.selectRow(newValue, true);
+
         this.taskQueue.queueMicroTask((() => {
           let row = this.element.querySelector('tr.table-info');
           if (row !== null) {
@@ -274,8 +301,9 @@ export class Grid {
         // row is already clicked
       }
     } else {
-      // unclick
-      this.rowClicked(this.lastSelectedItem, false);
+      if (this.lastSelectedItem !== undefined) {
+        this.deselectRow(this.lastSelectedItem, true);
+      }
     }
   }
 

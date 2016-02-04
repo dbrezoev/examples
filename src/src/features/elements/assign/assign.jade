@@ -4,7 +4,8 @@ template
   grid.col-lg-5(data.bind="leftItems",
     height="auto",
     selection="single",
-    on-select.call="select($event)",
+    select-grid-row.trigger="select($event.detail.$item)",
+    deselect-grid-row.trigger="deselect($event.detail.$item)",
     selected-item.bind="selectedItem",
     style="overflow-y: hidden")
       grid-row
@@ -20,7 +21,8 @@ template
   grid.col-lg-5(data.bind="rightItems",
     height="auto",
     selection="single",
-    on-select.call="select($event)",
+    select-grid-row.trigger="select($event.detail.$item)",
+    deselect-grid-row.trigger="deselect($event.detail.$item)",
     selected-item.bind="selectedItem",
     style="overflow-y: hidden")
       grid-row

@@ -44,6 +44,12 @@ export class TestGrid extends ChildRouter {
       title: 'pagination remote',
       nav: true
     }, {
+      route: 'sync-two-grids',
+      name: 'sync-two-grids',
+      moduleId: './sync-two-grids/sync-two-grids',
+      title: 'sync two grids',
+      nav: true
+    }, {
       route: 'filters',
       name: 'filters',
       moduleId: './filters/filters',

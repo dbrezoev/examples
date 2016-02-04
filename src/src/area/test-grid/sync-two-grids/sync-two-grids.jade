@@ -1,0 +1,85 @@
+template
+  split-horizontal(sizes.one-time="[33, 33, 34]", min-sizes.one-time="100")
+    split-vertical(sizes.one-time="[33, 67]", min-sizes.one-time="[200, 400]")
+      grid(data.bind="userTypes",
+        height="auto",
+        selection="single",
+        no-rows-message="management.userManagement.typesRolesPrivileges.noUserTypes",
+        select-grid-row.trigger="onUserTypeSelect($event.detail.$item)",
+        deselect-grid-row.trigger="onUserTypeSelect($event.detail.$item)",
+        selected-item.bind="selectedUserType",
+        style="overflow-y: hidden")
+        grid-row
+          grid-col(heading="management.userManagement.typesRolesPrivileges.userTypes", nosort)
+            span ${$item.name}
+      assign(left-items.bind="selectedUserType.roles",
+        right-items.bind="selectedUserType.remainingRoles",
+        selected-item.bind="selectedRole",
+        move-left-click.trigger="addUserTypeRole($event.detail.item)",
+        move-right-click.trigger="removeUserTypeRole($event.detail.item)",
+        move-all-left-click.trigger="addUserTypeAllRoles()",
+        move-all-right-click.trigger="removeUserTypeAllRoles()",
+        select-assign-item.trigger="onRoleSelect($event.detail.item)",
+        deselect-assign-item.trigger="onRoleDeselect($event.detail.item)",
+        left-heading="management.userManagement.typesRolesPrivileges.selectedUserTypeRoles",
+        right-heading="management.userManagement.typesRolesPrivileges.remainingRoles",
+        style="overflow-y: hidden")
+    split-vertical(sizes.one-time="[33, 67]", min-sizes.one-time="[200, 400]")
+      grid(data.bind="roles",
+        height="auto",
+        selection="single",
+        no-rows-message="management.userManagement.typesRolesPrivileges.noRoles",
+        select-grid-row.trigger="onRoleSelect($event.detail.$item)",
+        deselect-grid-row.trigger="onRoleDeselect($event.detail.$item)",
+        selected-item.bind="selectedRole",
+        style="overflow-y: hidden")
+        grid-row
+          grid-col(heading="management.userManagement.typesRolesPrivileges.roles", nosort)
+            span ${$item.name}
+      assign(left-items.bind="selectedRole.privileges",
+        right-items.bind="selectedRole.remainingPrivileges",
+        selected-item.bind="selectedPrivilege",
+        move-left-click.trigger="addRolePrivilege($event.detail.item)",
+        move-right-click.trigger="removeRolePrivilege($event.detail.item)",
+        move-all-left-click.trigger="addRoleAllPrivileges()",
+        move-all-right-click.trigger="removeRoleAllPrivileges()",
+        select-assign-item.trigger="onPrivilegeSelect($event.detail.item)",
+        deselect-assign-item.trigger="onPrivilegeDeselect($event.detail.item)",
+        left-heading="management.userManagement.typesRolesPrivileges.selectedRolePrivileges",
+        right-heading="management.userManagement.typesRolesPrivileges.remainingPrivileges",
+        style="overflow-y: hidden")
+    split-vertical(sizes.one-time="[33, 33, 34]", min-sizes.one-time="200")
+      grid(data.bind="privileges",
+        height="auto",
+        selection="single",
+        no-rows-message="management.userManagement.typesRolesPrivileges.noPrivileges",
+        select-grid-row.trigger="onPrivilegeSelect($event.detail.$item)",
+        deselect-grid-row.trigger="onPrivilegeDeselect($event.detail.$item)",
+        selected-item.bind="selectedPrivilege",
+        style="overflow-y: hidden")
+        grid-row
+          grid-col(heading="management.userManagement.typesRolesPrivileges.privileges", nosort)
+            span ${$item.name}
+      grid(data.bind="selectedPrivilege.roles",
+        height="auto",
+        selection="single",
+        no-rows-message="management.userManagement.typesRolesPrivileges.noRoles",
+        select-grid-row.trigger="onRoleSelect($event.detail.$item)",
+        deselect-grid-row.trigger="onRoleDeselect($event.detail.$item)",
+        selected-item.bind="selectedRole",
+        style="overflow-y: hidden")
+        grid-row
+          grid-col(heading="management.userManagement.typesRolesPrivileges.privilegeRoles", nosort)
+            span ${$item.name}
+      grid(data.bind="selectedPrivilege.userTypes",
+        height="auto",
+        selection="single",
+        no-rows-message="management.userManagement.typesRolesPrivileges.noUserTypes",
+        select-grid-row.trigger="onUserTypeSelect($event.detail.$item)",
+        deselect-grid-row.trigger="onUserTypeSelect($event.detail.$item)",
+        selected-item.bind="selectedUserType",
+        style="overflow-y: hidden")
+        grid-row
+          grid-col(heading="management.userManagement.typesRolesPrivileges.privilegeUserTypes", nosort)
+            span ${$item.name}
+
