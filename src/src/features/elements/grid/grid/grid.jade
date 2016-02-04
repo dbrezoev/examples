@@ -53,4 +53,4 @@ template
             select.form-control(value.bind="pageSize")
               option(value.bind="size", repeat.for="size of pageSizes") ${ size === '*' ? 'All' : size }
             span &nbsp; items per page
-        span.grid-summary(if.bind="showPagingSummary") Showing ${ dataStore.firstVisibleItem } - ${ dataStore.lastVisibleItem } of ${ dataStore.count } items
+        span.grid-summary(if.bind="showPagingSummary") Showing ${ storeManager.getDataStore().firstVisibleItem } - ${ storeManager.getDataStore().lastVisibleItem } of ${ storeManager.getDataStore().count } items
