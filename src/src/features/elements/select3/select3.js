@@ -42,16 +42,21 @@ export class Select3 {
     this.itemsChanged();
   }
 
-  unbind(){
-    if(this.itemsCollectionSubscription !== undefined){
+  unbind() {
+    if (this.itemsCollectionSubscription !== undefined) {
       this.itemsCollectionSubscription.dispose();
     }
   }
 
   valueChanged() {
+    if (this.value === undefined || this.value === null) {
+      this.selectedItemName = null;
+      return;
+    }
+
+    let valueId = this.opts.modelValueBind ? this.value[this.opts.id] : this.value;
     let selectedDatum = this.filteredData.find(datum => {
-      let itemValue = this.opts.modelValueBind ? this.value[this.opts.id] : this.value;
-      return datum.item[this.opts.id] === itemValue;
+      return datum.item[this.opts.id] === valueId;
     });
 
     if (selectedDatum) {
@@ -67,7 +72,7 @@ export class Select3 {
     this.valueChanged();
   }
 
-  reconstructItems(){
+  reconstructItems() {
     this.items.forEach(i => {
       i._escapedName = this._escapeHtml(i[this.opts.name]);
     });
@@ -75,7 +80,7 @@ export class Select3 {
   }
 
   _subscribeToItemsCollectionChanges() {
-    if(this.itemsCollectionSubscription !== undefined){
+    if (this.itemsCollectionSubscription !== undefined) {
       this.itemsCollectionSubscription.dispose();
     }
 

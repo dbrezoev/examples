@@ -1,4 +1,4 @@
-import $ from 'github:components/jquery@2.1.4';
+import $ from 'jquery';
 import bootstrap from 'twbs/bootstrap';
 
 import {hostConsts} from './libs/host-consts';
@@ -54,7 +54,6 @@ export function configure(aurelia) {
     .feature('features/elements/grid')
     .feature('features/elements/loading-mask')
     .feature('features/elements/popover')
-    .feature('features/elements/select2')
     .feature('features/elements/select3')
     .feature('features/elements/splitter')
     .feature('features/elements/tabs')
