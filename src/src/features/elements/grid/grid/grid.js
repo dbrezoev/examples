@@ -1,6 +1,6 @@
 import {customElement, TaskQueue, useView, bindable, inject, BindingEngine,
-        processContent, TargetInstruction, ViewCompiler, ViewSlot, ViewResources,
-        Container} from 'aurelia-framework';
+  processContent, TargetInstruction, ViewCompiler, ViewSlot, ViewResources,
+  Container} from 'aurelia-framework';
 import {processUserTemplate} from './proccess-user-template';
 import {ColumnDefinitionFactory} from '../column/column-definition-factory';
 import {StoreManager} from '../store/store-manager';
@@ -31,7 +31,8 @@ export class Grid {
   // Selection
   @bindable selection = false; // single || multiselect
   @bindable onSelect = null; // callback
-  lastSelectedItem = undefined
+  @bindable selectedItem = undefined;
+  lastSelectedItem = undefined;
 
   // Misc
   @bindable noRowsMessage = "";
@@ -237,13 +238,14 @@ export class Grid {
   }
 
   /* === Change handlers === */
-  rowClicked($item) {
+  rowClicked($item, selectRow) {
+    selectRow = selectRow !== undefined ? selectRow : !$item._selected;
     if (this.onSelect !== null) {
-      this.onSelect($item);
+      this.onSelect($item, selectRow);
     }
 
     if (this.selection !== false) {
-      $item._selected = !$item._selected;
+      $item._selected = selectRow;
       if (this.selection === 'single') {
         if (this.lastSelectedItem !== undefined && this.lastSelectedItem !== $item) {
           this.lastSelectedItem._selected = false;
@@ -251,6 +253,29 @@ export class Grid {
 
         this.lastSelectedItem = $item;
       }
+    }
+  }
+
+  selectedItemChanged(newValue, oldValue) {
+    if (newValue === oldValue) {
+      return;
+    }
+
+    if (newValue) {
+      if (newValue !== this.lastSelectedItem || !this.lastSelectedItem._selected) {
+        this.rowClicked(newValue, true);
+        this.taskQueue.queueMicroTask((() => {
+          let row = this.element.querySelector('tr.table-info');
+          if (row !== null) {
+            row.scrollIntoView();
+          }
+        }).bind(this));
+      } else {
+        // row is already clicked
+      }
+    } else {
+      // unclick
+      this.rowClicked(this.lastSelectedItem, false);
     }
   }
 
@@ -286,7 +311,7 @@ export class Grid {
 
   /* === Visual === */
   syncGridHeight() {
-    const headerTable =  this.element.querySelector('table.grid-header-table');
+    const headerTable = this.element.querySelector('table.grid-header-table');
     const headerHeight = headerTable.offsetHeight;
     const gridFooter = this.element.querySelector('grid-footer-container');
     let gridFooterHeight = 0;
@@ -301,24 +326,38 @@ export class Grid {
 
   syncColumnHeadersWithColumns() {
     // Get the header row
-    var headers = this.element.querySelectorAll("table>thead>tr:first-child>th");
-    var filters = this.element.querySelectorAll("table>thead>tr:last-child>th");
+    let headers = this.element.querySelectorAll("table>thead>tr:first-child>th");
+    let filters = this.element.querySelectorAll("table>thead>tr:last-child>th");
 
     // Get the first row from the data if there is one...
-    var cells = this.element.querySelectorAll("table>tbody>tr:first-child>td");
+    let cells = this.element.querySelectorAll("table>tbody>tr:first-child>td");
 
-    for (var i = headers.length - 1; i >= 0; i--) {
-      var header = headers[i];
-      var filter = filters[i];
-      var cell = cells[i];
+    for (let i = 0; i < headers.length; i++) {
+      let header = headers[i];
+      let filter = filters[i];
+      let cell = cells[i];
 
       if (cell && header && filter) {
-        var overflow = this.isBodyOverflowing();
-        var tgtWidth = cell.offsetWidth + (i == headers.length - 1 && overflow ? this.scrollBarWidth : 0);
+        let columnWidth = cell.getAttribute('width');
+
+        if (columnWidth) {
+          columnWidth = parseInt(columnWidth);
+        } else {
+          let tdWidth = cell.offsetWidth;
+          let thWidth = header.offsetWidth;
+          columnWidth = Math.max(tdWidth, thWidth);
+        }
+
+        let headerWidth = columnWidth;
+        let overflow = this.isBodyOverflowing();
+        if ((i === headers.length - 1) && overflow) {
+          headerWidth += this.scrollBarWidth;
+        }
 
         // Make the header the same width as the cell...
-        header.setAttribute("style", "width: " + tgtWidth + "px");
-        filter.setAttribute("style", "width: " + tgtWidth + "px");
+        header.setAttribute("style", `width: ${headerWidth}px`);
+        filter.setAttribute("style", `width: ${headerWidth}px`);
+        cell.setAttribute("style", `width: ${columnWidth}px`);
       }
     }
   }
