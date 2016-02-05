@@ -79,7 +79,7 @@ export class Grid {
   }
 
   bind(bindingContext, overrideContext) {
-    this._parent = bindingContext;
+    this.parent = bindingContext;
 
     if (this.columnsMetadata === null) {
       this.columns = this.columnDefinitionFactory.create();
@@ -177,7 +177,7 @@ export class Grid {
 
   // call function from parent context where grid is composed
   call(funcName, ...params) {
-    this._parent[funcName].apply(this._parent, params);
+    this.parent[funcName].apply(this.parent, params);
   }
 
   changeSort(sort) {
