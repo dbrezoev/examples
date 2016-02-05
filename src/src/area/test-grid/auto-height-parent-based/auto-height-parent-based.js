@@ -7,7 +7,7 @@ export class AutoHeight {
     this.logger = logger;
     this.gridHeight = 400;
     window.x = this;
-
+    this.popoverTestBinding = 'testing binsfrwjrwerhwrlwehrwklrwjrweklrjwrwelkerjwelrjwerlkewrjdig';
     this.data = this._generateTestData();
   }
 

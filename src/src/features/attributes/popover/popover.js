@@ -11,9 +11,11 @@ import {DOM} from 'aurelia-pal';
 export class Popover {
   @bindable title;
   @bindable content;
-  @bindable placement = 'auto';
+  @bindable placement = 'bottom';
+  @bindable trigger = 'hover';
   @bindable disabled = false;
   @bindable view;
+  @bindable width;
 
   constructor(element, container, compositionEngine, viewSlot, viewResources, taskQueue, dom) {
     this.element = element;
@@ -25,27 +27,27 @@ export class Popover {
     this.currentController = null;
     this.currentViewModel = null;
     this.dom = dom;
+
+    this.isPopoverInitialized = false;
+
+    this._trigger = this.trigger;
   }
 
   created(owningView, myView) {
-    debugger;
     this.owningView = owningView;
   }
 
   bind(bindingContext, overrideContext) {
-    debugger;
+    this.checkContentAndView();
+    this.checkPlacement();
+    this.checkTrigger();
+
     this.popoverNode = this.dom.createElement('div');
+    this.popoverNode.style.display = 'none';
+
     this.viewSlot = new ViewSlot(this.popoverNode, true, this);
-    //this.dom.appendNode(this.popoverNode, this.element);
     this.dom.appendNode(this.popoverNode);
     this.$element = $(this.element);
-
-    if(this.disabled) {
-      return;
-    }
-
-    this.checkContent();
-    this.checkPlacement();
 
     this.bindingContext = bindingContext;
     this.overrideContext = overrideContext;
@@ -54,49 +56,29 @@ export class Popover {
       viewModel: this.viewModel,
       model: this.model
     }));
-
-    //this.taskQueue.queueMicroTask(() => {
-    this.taskQueue.queueTask(() => {
-      let y = this;
-      this.$element.popover(this._getOptions());
-    });
   }
 
   attached() {
-    debugger;
-  }
-
-  detached() {
-    debugger;
-    this.$element.popover('dispose');
-  }
-
-  unbind() {
-    debugger;
-  }
-
-
-  _getOptions() {
-    return {
-      content: this.popoverNode,
-      title: this.title,
-      placement: this.placement,
-      trigger: 'hover',
-      container: 'body',
-      html: true
-    };
-  }
-
-  _reinit() {
-    if(this.disabled){
+    if (this.disabled) {
       return;
     }
 
-    this.$element.popover('dispose');
-    this.$element.popover(this._getOptions());
+    this.checkPlacement();
+    this.checkTrigger();
+    this._reinit();
+  }
+
+  detached() {
+    this._dispose();
   }
 
   contentChanged(newValue, oldValue) {
+    this.checkContentAndView();
+    this._reinit();
+  }
+
+  viewChanged() {
+    this.checkContentAndView();
     this._reinit();
   }
 
@@ -105,25 +87,107 @@ export class Popover {
   }
 
   placementChanged(newValue, oldValue) {
+    this.checkPlacement();
     this._reinit();
   }
 
-  checkContent() {
-    if (!this.content) {
-      throw new Error('Invalid value for popover content: ' + this.content);
+  triggerChanged(newValue, oldValue) {
+    this.checkTrigger();
+
+    this._trigger = this.trigger === 'insideClick' ? 'manual' : this.trigger;
+
+    this._reinit();
+  }
+
+  _reinit() {
+    if (this.disabled) {
+      return;
     }
+
+    if (this.isPopoverInitialized === true) {
+      this._dispose();
+    }
+
+    this._init();
+    this.isPopoverInitialized = true;
+  }
+
+  _init() {
+    if (this.trigger === 'insideClick') {
+      this.$element.on('click', () => {
+        this.$element.popover('toggle');
+      });
+
+      this.popoverNode.onclick = (() => {
+        this.$element.popover('hide');
+      });
+    } else {
+      this.$element.off('click');
+      this.popoverNode.onclick = null;
+    }
+
+    this.$element.popover(this._getOptions());
+    //this.popoverNode.style.display = 'block';
+    if (this.width) {
+      this.popoverNode.style.width = this.width + 'px';
+    }
+
+    //this.$element.popover('show');
+    //this.$element.popover('hide');
+  }
+
+  _dispose() {
+    this.popoverNode.style.display = 'none';
+    this.$element.popover('dispose');
+    this.isPopoverInitialized = false;
+  }
+
+  _getOptions() {
+    return {
+      content: this.popoverNode,
+      title: this.title || '',
+      placement: this.placement,
+      trigger: this._trigger,
+      container: 'body',
+      html: true,
+      template: '<div class="popover" role="tooltip">' +
+      '<div class="popover-arrow"></div>' +
+      (this.title ? '<h3 class="popover-title"></h3>' : '') +
+      ((!this.content && !this.view) ? '' : '<div class="popover-content"></div>') +
+      '</div>'
+    };
   }
 
   checkPlacement() {
     switch (this.placement) {
-    case 'top':
-    case 'bottom':
-    case 'left':
-    case 'right':
-    case 'auto':
-      break;
-    default:
-      throw new Error('Invalid value for popover placement: ' + this.placement);
+      case 'top':
+      case 'bottom':
+      case 'left':
+      case 'right':
+        //case 'auto':
+        break;
+      default:
+        throw new Error('Invalid value for popover placement: ' + this.placement);
+    }
+  }
+
+  checkTrigger() {
+    switch (this.trigger) {
+      case 'click':
+      case 'hover':
+      case 'focus':
+      case 'insideClick':
+        break;
+      default:
+        throw new Error('Invalid value for popover trigger: ' + this.trigger);
+    }
+  }
+
+  checkContentAndView() {
+    if (this.content && this.view) {
+      throw new Error(`Popover cannot have content and view at the same time! Content: ${this.content}; View: ${this.view}`);
+    //} else if (!this.content && !this.view) {
+    //  throw new Error(`Popover should have content or view! Content: ${this.content}; View: ${this.view}`);
     }
   }
 }
