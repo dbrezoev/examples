@@ -73,6 +73,7 @@ export class Grid {
     this.bindingEngine = bindingEngine;
     this.taskQueue = taskQueue;
     const gridDefinition = targetInstruction.behaviorInstructions[0].gridDefinition;
+    this.rowAttrs = gridDefinition.rowAttrs;
     this.columnDefinitionFactory = new ColumnDefinitionFactory(gridDefinition, this);
     this.pageable = gridDefinition.paginationAttrs;
   }
