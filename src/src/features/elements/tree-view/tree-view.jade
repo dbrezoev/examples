@@ -1,0 +1,5 @@
+template
+  require(from="./tree-view.css")
+  ul.list-group
+    li.list-group-item(repeat.for="$item of treeData")
+      | ${$item.text}

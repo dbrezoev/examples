@@ -52,6 +52,7 @@ export function configure(aurelia) {
     .feature('features/elements/buttons')
     .feature('features/elements/date-time-picker')
     .feature('features/elements/grid')
+    .feature('features/elements/tree-view')
     .feature('features/elements/loading-mask')
     .feature('features/elements/popover')
     .feature('features/elements/select3')

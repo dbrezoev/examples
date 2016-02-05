@@ -1,0 +1,22 @@
+tree-view {
+  display: block;
+}
+
+tree-view .list-group-item {
+	cursor: pointer;
+}
+
+tree-view span.indent {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+tree-view span.icon {
+	width: 12px;
+	margin-right: 5px;
+}
+
+tree-view .node-disabled {
+	color: silver;
+	cursor: not-allowed;
+}

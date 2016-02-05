@@ -47,7 +47,7 @@ System.config({
     "nathancahill/Split.js": "github:nathancahill/Split.js@1.0.6",
     "service": "features/service/index",
     "text": "github:systemjs/plugin-text@0.0.3",
-    "twbs/bootstrap": "github:twbs/bootstrap@3.3.6",
+    "twbs/bootstrap": "github:twbs/bootstrap@4.0.0-alpha.2",
     "utils": "features/utils/index",
     "github:CodeSeven/toastr@2.1.2": {
       "css": "github:systemjs/plugin-css@0.1.20",
@@ -67,6 +67,10 @@ System.config({
     },
     "github:twbs/bootstrap@3.3.6": {
       "jquery": "github:components/jquery@2.2.0"
+    },
+    "github:twbs/bootstrap@4.0.0-alpha.2": {
+      "jquery": "github:components/jquery@2.2.0",
+      "tether": "github:HubSpot/tether@1.1.1"
     },
     "npm:assert@1.3.0": {
       "util": "npm:util@0.10.3"

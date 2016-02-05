@@ -42,6 +42,12 @@ export class RoutesConfig {
       moduleId: './area/test-grid/test-grid',
       nav: true,
       title: 'Test Grid'
+    }, {
+      route: 'test-tree-view',
+      name: 'test-tree-view',
+      moduleId: './area/test-treeview//test-treeview',
+      nav: true,
+      title: 'Test TreeView'
     }];
   }
 }
