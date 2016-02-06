@@ -24,7 +24,18 @@ export class TreeViewSimple {
     }, {
       text: "Parent 4"
     }, {
-      text: "Parent 5"
+      text: "Parent 5",
+      nodes: [{
+        text: "Child 1",
+        expanded: true,
+        nodes: [{
+          text: "Grandchild 1"
+        }, {
+          text: "Grandchild 2"
+        }]
+      }, {
+        text: "Child 2"
+      }]
     }];
   }
 

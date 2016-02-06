@@ -2,6 +2,15 @@ tree-view {
   display: block;
 }
 
+tree-view > ul > li > div.indent {
+  float: left;
+  height: 100%;
+}
+
+tree-view > ul > li > div.content {
+  display: inline-block;
+}
+
 tree-view .list-group-item {
 	cursor: pointer;
 }

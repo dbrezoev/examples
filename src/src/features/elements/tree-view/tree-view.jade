@@ -1,5 +1,18 @@
 template
   require(from="./tree-view.css")
   ul.list-group
-    li.list-group-item(repeat.for="$item of treeData")
-      | ${$item.text}
+    li.list-group-item(repeat.for="$item of treeData", show.bind="$item.visible")
+      div.indent
+        span.indent(repeat.for="num of $item.nestedLevel")
+        span.indent(if.bind="!$item.hasChildren")
+        span.icon.fa(if.bind="$item.hasChildren", class="${$item.expanded ? 'fa-minus-square-o': 'fa-plus-square-o'}", click.trigger="$item.toggleChildrenVisibility()")
+      div.content
+        template(if.bind="$item.view")
+          compose(view.bind="$item.view", model="$item")
+        template(if.bind="!$item.view")
+          | ${$item.text}
+          br
+          | ${$item.text}
+          | ${$item.text}
+          br
+          | ${$item.text}
