@@ -46,13 +46,6 @@ export class TreeViewCustomNodeView {
     }];
   }
 
-  click() {}
-
-  itemSelected(item) {
-    this.selectedItemText = item.text;
-    console.log(item);
-  }
-
   filterFunc(item) {
     console.log(item);
     if (item.text) return true;

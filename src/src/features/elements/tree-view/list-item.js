@@ -84,5 +84,8 @@ export class ListItem {
 
   setSelectedStatus(status) {
     this.selected = status;
+    if (this.parent) {
+      this.parent.expand();
+    }
   }
 }

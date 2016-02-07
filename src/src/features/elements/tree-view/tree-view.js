@@ -9,6 +9,7 @@ export class TreeView {
   @bindable data = [];
   @bindable filterFunc = null;
   @bindable filter = false;
+  @bindable selectedItem;
 
   constructor(element, viewResources, bindingEngine) {
     this.element = element;
@@ -18,11 +19,12 @@ export class TreeView {
 
   created(owningView, myView) {}
 
+  // todo: make this work
   _subscribeToDataCollectionChanges() {
     this.dataCollectionSubscription = this.bindingEngine
       .collectionObserver(this.data)
       .subscribe(collectionChangeInfo => {
-        this.treeData = processData(this.data, this.filterFunc);
+        this.refresh();
       });
   }
 
@@ -33,13 +35,17 @@ export class TreeView {
       .subscribe((newItems, oldItems) => {
         this.dataCollectionSubscription.dispose();
         this._subscribeToDataCollectionChanges();
-        this.treeData = processData(newItems, this.filterFunc);
+        this.refresh();
       });
 
-    this.treeData = processData(this.data, this.filterFunc);
+    this.refresh();
 
     if (this.filter === true) {
       this.filterChanged(this.filter);
+    }
+
+    if (this.selectedItem) {
+      this.selectedItemChanged(this.selectedItem);
     }
   }
 
@@ -50,10 +56,6 @@ export class TreeView {
   unbind() {
     this.dataPropertySubscription.dispose();
     this.dataCollectionSubscription.dispose();
-  }
-
-  dataChanged(newData, oldData) {
-    this.treeData = processData(newData, this.filterFunc);
   }
 
   filterFuncChanged(newFunc, oldFunc) {
@@ -71,6 +73,27 @@ export class TreeView {
         this.treeData.forEach(li => li.clearFilter());
       }
     }
+  }
+
+  selectedItemChanged(newValue, oldValue) {
+    if (newValue) {
+      if (newValue !== oldValue) {
+        let listItem = this.listItemMap.get(newValue);
+        if (listItem) {
+          this.listItemClicked(listItem);
+        }
+      }
+    } else {
+      if (this.currentSelectedListItem) {
+        this.currentSelectedListItem.setSelectedStatus(false);
+      }
+    }
+  }
+
+  refresh() {
+    this.treeData = processData(this.data, this.filterFunc);
+    this.listItemMap = new WeakMap();
+    this.treeData.forEach(li => this.listItemMap.set(li.item, li));
   }
 
   listItemClicked(listItem) {

@@ -23,7 +23,13 @@ export class TestGrid extends ChildRouter {
       route: 'custom-node-view',
       name: 'custom-node-view',
       moduleId: './custom-node-view/custom-node-view',
-      title: 'custom node view',
+      title: 'custom node view && filter',
+      nav: true
+    }, {
+      route: 'selection',
+      name: 'selection',
+      moduleId: './selection/selection',
+      title: 'selection',
       nav: true
     }];
   }

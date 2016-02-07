@@ -1,0 +1,22 @@
+template
+  h3 On item select
+  div.row
+    div.col-sm-4
+      tree-view(data.bind="treeData",
+                select.trigger="itemSelected($event.detail.$item)",
+                selected-item.bind="selectedItem")
+
+    div.col-sm-4
+      label node's text:
+      input(value.bind="selectedItem.text")
+      button(click.trigger="changeNodeText()") Change text
+      button(click.trigger="changeCollection()") Change collection
+      hr
+      grid(data.bind="gridData")
+        grid-row
+          grid-col(heading="node", nosort)
+            | ${$item.text}
+          grid-col(nosort)
+            button(click.trigger="$parent.parent.selectItem($item)") select item
+    div.col-sm-4
+      
