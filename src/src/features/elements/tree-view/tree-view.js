@@ -18,7 +18,7 @@ export class TreeView {
   created(owningView, myView) {}
 
   bind(bindingContext, overrideContext) {
-    this._processData(this.data);
+    this.treeData = processData(this.data, this.filterFunc);
     if (this.filter === true) {
       this.filterChanged(this.filter);
     }
@@ -31,7 +31,7 @@ export class TreeView {
   unbind() {}
 
   dataChanged(newData, oldData) {
-    this._processData(newData);
+    this.treeData = processData(newData, this.filterFunc);
   }
 
   filterFuncChanged(newFunc, oldFunc) {
@@ -63,11 +63,12 @@ export class TreeView {
     listItem.setActiveStatus(true);
     this.currentActiveListItem = listItem;
   }
+}
 
-  _processData(data) {
-    let listItems = data.map(d => new ListItem(d, {filter: this.filterFunc}));
-    this.treeData = flatten(listItems);
-  }
+
+function processData(data, filterFunc) {
+  let listItems = data.map(d => new ListItem(d, {filter: filterFunc}));
+  return flatten(listItems);
 }
 
 function flatten(arr) {
