@@ -7,12 +7,21 @@ export class BaseColumn {
   };
 
   constructor(config, template, grid) {
+    this._subscriptions = [];
     this.config = config;
     this.template = template;
     this.field = config.field;
     this.grid = grid;
 
-    this.heading = config.heading || '';
+    this.heading = config.heading;
+    if (this.heading === undefined) {
+      const viewModelPropertyName = config['heading.bind'];
+      if (viewModelPropertyName !== undefined) {
+        this.heading = this.subscribe(viewModelPropertyName, 'heading');
+      } else {
+        this.heading = '';
+      }
+    }
 
     this.sort = config.nosort === undefined;
     this.filter = config.filter || false;
@@ -22,9 +31,6 @@ export class BaseColumn {
     }
 
     this.filterValue = config['filter-value'] || '';
-    this.showFilter = config['show-filter'] !== 'false';
-
-    this._subscriptions = [];
   }
 
   hasFilterValue() {
