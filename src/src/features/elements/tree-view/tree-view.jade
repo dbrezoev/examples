@@ -2,14 +2,15 @@ template
   require(from="./compose-relative-to-parent")
   require(from="./tree-view.css")
   div.list-group()
-    a.list-group-item(repeat.for="$item of treeData", show.bind="$item.visible", click.trigger="listItemClicked($item)", class.bind="$item.active ? 'active': ''")
+    a.list-group-item(repeat.for="$item of treeData", show.bind="$item.visible && !$item.filterd", click.trigger="listItemClicked($item)", class.bind="$item.active ? 'active': ''")
       div.indent
         span.indent(repeat.for="num of $item.nestedLevel")
         span.indent(if.bind="!$item.hasChildren")
-        span.icon.fa(if.bind="$item.hasChildren", class="${$item.expanded ? 'fa-minus-square-o': 'fa-plus-square-o'}", click.trigger="$item.toggleChildrenVisibility()")
+        span.icon.fa(if.bind="$item.hasChildren", class="${$item.expanded ? 'fa-minus-square-o': 'fa-plus-square-o'}", click.trigger="$item.toggleChildrenVisibility($event)")
       div.content
         template(if.bind="$item.view")
           compose-relative-to-parent(view.bind="$item.view", view-model.bind="$item.viewModel")
           //compose-relative-to-parent(view.bind="$item.view")
         template(if.bind="!$item.view")
+          i(if.bind="$item.icon", class.bind="$item.icon") &nbsp;
           | ${$item.text}

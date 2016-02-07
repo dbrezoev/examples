@@ -5,6 +5,7 @@ export class ListItem {
     this.view = item.view;
     this.viewModel = item.viewModel;
 
+    this.icon = item.icon;
     this.expanded = item.expanded || false;
     this.hasChildren = Array.isArray(item.nodes);
 
@@ -18,7 +19,8 @@ export class ListItem {
       this.children = item.nodes.map(itemData => new ListItem(itemData, {
         parent: this,
         visible: this.expanded,
-        nestedLevel: this.nestedLevel + 1
+        nestedLevel: this.nestedLevel + 1,
+        filter: this.filter
       }));
     }
 
@@ -27,13 +29,32 @@ export class ListItem {
     }
   }
 
+  setFilter(filter) {
+    this.filter = filter;
+    this.applyFilter();
+  }
+
+  applyFilter() {
+    if (this.filter) {
+      this.filterd = this.filter(this.item);
+    }
+  }
+
+  clearFilter() {
+    this.filterd = false;
+  }
+
   getChildren() {
     return this.children || [];
   }
 
-  toggleChildrenVisibility() {
-    this.expanded = !this.expanded;
-    this.getChildren().forEach(c => c.setVisibleStatus(this.expanded));
+  toggleChildrenVisibility(ev) {
+    ev.stopPropagation();
+    if (this.expanded) {
+      this.collapse();
+    } else {
+      this.expand();
+    }
   }
 
   setVisibleStatus(visible) {
@@ -48,6 +69,7 @@ export class ListItem {
 
   expand() {
     this.expanded = true;
+    this.getChildren().forEach(c => c.setVisibleStatus(true));
     this.visible = true;
     if (this.parent) {
       this.parent.expand();

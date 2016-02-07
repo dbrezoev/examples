@@ -4,6 +4,7 @@ export class TreeViewCustomNodeView {
   constructor() {
     this.treeData = [{
       text: "Parent 1",
+      icon: "fa fa-ban",
       nodes: [{
         text: "Child 1",
         nodes: [{
@@ -50,5 +51,10 @@ export class TreeViewCustomNodeView {
   itemSelected(item) {
     this.selectedItemText = item.text;
     console.log(item);
+  }
+
+  filterFunc(item) {
+    console.log(item);
+    if (item.text) return true;
   }
 }
