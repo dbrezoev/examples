@@ -2,6 +2,9 @@ export class ListItem {
   constructor(item, opts) {
     this.item = item;
     this.text = item.text;
+    this.view = item.view;
+    this.viewModel = item.viewModel;
+
     this.expanded = item.expanded || false;
     this.hasChildren = Array.isArray(item.nodes);
 

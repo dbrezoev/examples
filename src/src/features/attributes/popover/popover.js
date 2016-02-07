@@ -72,6 +72,14 @@ export class Popover {
     this._dispose();
   }
 
+  unbind(bindingContext, overrideContext) {
+    this.bindingContext = null;
+    this.overrideContext = null;
+    let returnToCache = true;
+    let skipAnimation = true;
+    this.viewSlot.removeAll(returnToCache, skipAnimation);
+  }
+
   contentChanged(newValue, oldValue) {
     this.checkContentAndView();
     this._reinit();

@@ -1,4 +1,5 @@
 template
+  require(from="./compose-relative-to-parent")
   require(from="./tree-view.css")
   ul.list-group
     li.list-group-item(repeat.for="$item of treeData", show.bind="$item.visible")
@@ -8,7 +9,8 @@ template
         span.icon.fa(if.bind="$item.hasChildren", class="${$item.expanded ? 'fa-minus-square-o': 'fa-plus-square-o'}", click.trigger="$item.toggleChildrenVisibility()")
       div.content
         template(if.bind="$item.view")
-          compose(view.bind="$item.view", model="$item")
+          compose-relative-to-parent(view.bind="$item.view", view-model.bind="$item.viewModel")
+          //compose-relative-to-parent(view.bind="$item.view")
         template(if.bind="!$item.view")
           | ${$item.text}
           br

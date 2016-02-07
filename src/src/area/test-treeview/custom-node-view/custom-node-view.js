@@ -15,8 +15,16 @@ export class TreeViewCustomNodeView {
         text: "Child 2"
       }]
     }, {
-      text: "Parent 2",
-      view: './node-view.html'
+      viewModel: {
+        text: "Parent 2",
+        sample: 345
+      },
+      view: './node-view.html',
+      nodes: [{
+        text: "Child 1"
+      }, {
+        text: "Child 2"
+      }]
     }, {
       text: "Parent 3"
     }, {

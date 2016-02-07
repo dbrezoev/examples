@@ -1,14 +1,15 @@
-import {inject, customElement, bindable} from 'aurelia-framework';
+import {inject, customElement, ViewResources, bindable} from 'aurelia-framework';
 import {ListItem} from './list-item';
 
 
 @customElement('tree-view')
-@inject(Element)
+@inject(Element, ViewResources)
 export class TreeView {
   @bindable data = [];
 
-  constructor(element) {
+  constructor(element, viewResources) {
     this.element = element;
+    this.viewResources = viewResources;
   }
 
   created(owningView, myView) {}
