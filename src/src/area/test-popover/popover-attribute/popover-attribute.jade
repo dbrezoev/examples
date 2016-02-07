@@ -3,4 +3,6 @@ template
     br
     br
     p
-      a(popover="view: ./popover-view.html; title.bind: title; content.bind: content; placement: top") Hover me for popover
+      a(popover="view: ./popover-view.html; title.bind: title; placement: right") Hover me for popover
+
+    input(type="text", value.bind="popoverTestBinding")
