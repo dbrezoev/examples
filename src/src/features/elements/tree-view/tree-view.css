@@ -2,12 +2,12 @@ tree-view {
   display: block;
 }
 
-tree-view > ul > li > div.indent {
+tree-view > div > a > div.indent {
   float: left;
   height: 100%;
 }
 
-tree-view > ul > li > div.content {
+tree-view > div > a > div.content {
   display: inline-block;
 }
 

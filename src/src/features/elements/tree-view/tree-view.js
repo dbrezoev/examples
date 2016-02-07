@@ -26,6 +26,15 @@ export class TreeView {
 
   dataChanged(newData, oldData) {}
 
+  listItemClicked(listItem) {
+    if (this.currentActiveListItem) {
+      this.currentActiveListItem.setActiveStatus(false);
+    }
+
+    listItem.setActiveStatus(true);
+    this.currentActiveListItem = listItem;
+  }
+
   _processData() {
     let listItems = this.data.map(d => new ListItem(d));
     this.treeData = flatten(listItems);

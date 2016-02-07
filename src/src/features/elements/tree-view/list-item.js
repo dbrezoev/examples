@@ -58,4 +58,8 @@ export class ListItem {
     this.expanded = false;
     this.getChildren().forEach(c => c.setVisibleStatus(false));
   }
+
+  setActiveStatus(status) {
+    this.active = status;
+  }
 }
