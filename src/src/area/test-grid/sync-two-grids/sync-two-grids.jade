@@ -7,8 +7,7 @@ template
         no-rows-message="management.userManagement.typesRolesPrivileges.noUserTypes",
         select-grid-row.trigger="onUserTypeSelect($event.detail.$item)",
         deselect-grid-row.trigger="onUserTypeSelect($event.detail.$item)",
-        selected-item.bind="selectedUserType",
-        style="overflow-y: hidden")
+        selected-item.bind="selectedUserType")
         grid-row
           grid-col(heading="management.userManagement.typesRolesPrivileges.userTypes", nosort)
             span ${$item.name}
@@ -31,8 +30,7 @@ template
         no-rows-message="management.userManagement.typesRolesPrivileges.noRoles",
         select-grid-row.trigger="onRoleSelect($event.detail.$item)",
         deselect-grid-row.trigger="onRoleDeselect($event.detail.$item)",
-        selected-item.bind="selectedRole",
-        style="overflow-y: hidden")
+        selected-item.bind="selectedRole")
         grid-row
           grid-col(heading="management.userManagement.typesRolesPrivileges.roles", nosort)
             span ${$item.name}
@@ -55,8 +53,7 @@ template
         no-rows-message="management.userManagement.typesRolesPrivileges.noPrivileges",
         select-grid-row.trigger="onPrivilegeSelect($event.detail.$item)",
         deselect-grid-row.trigger="onPrivilegeDeselect($event.detail.$item)",
-        selected-item.bind="selectedPrivilege",
-        style="overflow-y: hidden")
+        selected-item.bind="selectedPrivilege")
         grid-row
           grid-col(heading="management.userManagement.typesRolesPrivileges.privileges", nosort)
             span ${$item.name}
@@ -66,8 +63,7 @@ template
         no-rows-message="management.userManagement.typesRolesPrivileges.noRoles",
         select-grid-row.trigger="onRoleSelect($event.detail.$item)",
         deselect-grid-row.trigger="onRoleDeselect($event.detail.$item)",
-        selected-item.bind="selectedRole",
-        style="overflow-y: hidden")
+        selected-item.bind="selectedRole")
         grid-row
           grid-col(heading="management.userManagement.typesRolesPrivileges.privilegeRoles", nosort)
             span ${$item.name}
@@ -77,8 +73,7 @@ template
         no-rows-message="management.userManagement.typesRolesPrivileges.noUserTypes",
         select-grid-row.trigger="onUserTypeSelect($event.detail.$item)",
         deselect-grid-row.trigger="onUserTypeSelect($event.detail.$item)",
-        selected-item.bind="selectedUserType",
-        style="overflow-y: hidden")
+        selected-item.bind="selectedUserType")
         grid-row
           grid-col(heading="management.userManagement.typesRolesPrivileges.privilegeUserTypes", nosort)
             span ${$item.name}

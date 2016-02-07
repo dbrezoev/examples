@@ -332,14 +332,18 @@ export class Grid {
 
     if (this.height === 'auto' || window.isNaN(window.Number(this._height)) === false) {
       //cont.setAttribute("style", "height:" + this.height + "px");
-      cont.setAttribute("style", `height: ${this._height}px`);
+      cont.setAttribute('style', `height: ${this._height}px`);
     } else {
-      cont.removeAttribute("style");
+      cont.removeAttribute('style');
     }
   }
 
   /* === Visual === */
   syncGridHeight() {
+    if (this.height === 'auto') {
+      this.element.style.overflowY = 'hidden';
+    }
+
     const headerTable = this.element.querySelector('table.grid-header-table');
     const headerHeight = headerTable.offsetHeight;
     const gridFooter = this.element.querySelector('grid-footer-container');
