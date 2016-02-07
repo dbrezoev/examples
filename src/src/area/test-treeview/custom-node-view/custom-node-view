@@ -1,6 +1,0 @@
-template
-  section
-    br
-    br
-    p
-      a(popover="view: ./popover-view.html; title.bind: title; content.bind: content; placement: top") Hover me for popover
