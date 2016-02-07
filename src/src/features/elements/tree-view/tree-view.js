@@ -1,24 +1,43 @@
-import {inject, customElement, ViewResources, bindable} from 'aurelia-framework';
+import {inject, customElement, ViewResources, bindable, BindingEngine} from 'aurelia-framework';
 import {ListItem} from './list-item';
 import {customElementHelper} from 'utils';
 
 
 @customElement('tree-view')
-@inject(Element, ViewResources)
+@inject(Element, ViewResources, BindingEngine)
 export class TreeView {
   @bindable data = [];
   @bindable filterFunc = null;
   @bindable filter = false;
 
-  constructor(element, viewResources) {
+  constructor(element, viewResources, bindingEngine) {
     this.element = element;
     this.viewResources = viewResources;
+    this.bindingEngine = bindingEngine;
   }
 
   created(owningView, myView) {}
 
+  _subscribeToDataCollectionChanges() {
+    this.dataCollectionSubscription = this.bindingEngine
+      .collectionObserver(this.data)
+      .subscribe(collectionChangeInfo => {
+        this.treeData = processData(this.data, this.filterFunc);
+      });
+  }
+
   bind(bindingContext, overrideContext) {
+    this._subscribeToDataCollectionChanges();
+    this.dataPropertySubscription = this.bindingEngine
+      .propertyObserver(this, 'data')
+      .subscribe((newItems, oldItems) => {
+        this.dataCollectionSubscription.dispose();
+        this._subscribeToDataCollectionChanges();
+        this.treeData = processData(newItems, this.filterFunc);
+      });
+
     this.treeData = processData(this.data, this.filterFunc);
+
     if (this.filter === true) {
       this.filterChanged(this.filter);
     }
@@ -28,7 +47,10 @@ export class TreeView {
 
   detached() {}
 
-  unbind() {}
+  unbind() {
+    this.dataPropertySubscription.dispose();
+    this.dataCollectionSubscription.dispose();
+  }
 
   dataChanged(newData, oldData) {
     this.treeData = processData(newData, this.filterFunc);
@@ -56,12 +78,12 @@ export class TreeView {
       $item: listItem.item
     });
 
-    if (this.currentActiveListItem) {
-      this.currentActiveListItem.setActiveStatus(false);
+    if (this.currentSelectedListItem) {
+      this.currentSelectedListItem.setSelectedStatus(false);
     }
 
-    listItem.setActiveStatus(true);
-    this.currentActiveListItem = listItem;
+    listItem.setSelectedStatus(true);
+    this.currentSelectedListItem = listItem;
   }
 }
 

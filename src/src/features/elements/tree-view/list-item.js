@@ -7,6 +7,7 @@ export class ListItem {
 
     this.icon = item.icon;
     this.expanded = item.expanded || false;
+    this.selected = item.selected || false;
     this.hasChildren = Array.isArray(item.nodes);
 
 
@@ -81,7 +82,7 @@ export class ListItem {
     this.getChildren().forEach(c => c.setVisibleStatus(false));
   }
 
-  setActiveStatus(status) {
-    this.active = status;
+  setSelectedStatus(status) {
+    this.selected = status;
   }
 }
