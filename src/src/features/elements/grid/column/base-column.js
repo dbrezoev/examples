@@ -104,7 +104,7 @@ export class BaseColumn {
       throw new Error('Argument exception! Argument "viewModelProperty" can\'t be empty!');
     }
 
-    const viewModel = this.grid._parent;
+    const viewModel = this.grid.parent;
     let value = viewModel[viewModelPropertyName];
 
     const subscription = this.grid.bindingEngine
