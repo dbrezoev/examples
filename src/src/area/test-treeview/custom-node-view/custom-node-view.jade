@@ -2,7 +2,8 @@ template
     br
     div.row
       div.col-sm-4
-        tree-view(data.bind="treeData")
+        input(value.bind="selectedItemText")
+        tree-view(data.bind="treeData", select.trigger="itemSelected($event.detail.$item)")
       div.col-sm-4
         tree-view(data.bind="treeData")
       div.col-sm-4

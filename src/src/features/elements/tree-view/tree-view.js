@@ -1,5 +1,6 @@
 import {inject, customElement, ViewResources, bindable} from 'aurelia-framework';
 import {ListItem} from './list-item';
+import {customElementHelper} from 'utils';
 
 
 @customElement('tree-view')
@@ -27,6 +28,10 @@ export class TreeView {
   dataChanged(newData, oldData) {}
 
   listItemClicked(listItem) {
+    customElementHelper.dispatchEvent(this.element, 'select', {
+      $item: listItem.item
+    });
+
     if (this.currentActiveListItem) {
       this.currentActiveListItem.setActiveStatus(false);
     }
