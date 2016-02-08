@@ -37,11 +37,17 @@ export class RoutesConfig {
       nav: true,
       title: 'Test Popover'
     }, {
+      route: 'test-select3',
+      name: 'test-select3',
+      moduleId: './area/test-select3/test-select3',
+      nav: true,
+      title: 'Test Grid'
+    }, {
       route: 'test-grid',
       name: 'test-grid',
       moduleId: './area/test-grid/test-grid',
       nav: true,
-      title: 'Test Grid'
+      title: 'Test Select3'
     }, {
       route: 'test-tree-view',
       name: 'test-tree-view',

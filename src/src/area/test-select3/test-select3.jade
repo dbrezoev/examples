@@ -1,0 +1,28 @@
+template
+  h1 Test Select 3
+  div.col-lg-6
+    div.form-group.row
+      label.form-control-label.col-lg-3 Input
+      div.col-lg-9
+        input.form-control(type="text")
+    div.form-group.row
+      label.form-control-label.col-lg-3 Input
+      div.col-lg-9
+        input.form-control(type="text")
+    div.form-group.row
+      label.form-control-label.col-lg-3 People
+      div.col-lg-9
+        select3(items.bind="people",
+        value.two-way="selectedPerson",
+        options.bind="{modelValueBind:true, sort: true}")
+    div.form-group.row
+      label.form-control-label.col-lg-3 Selected person name
+      div.col-lg-9 ${selectedPerson.name}
+    div.form-group.row
+      label.form-control-label.col-lg-3 Input
+      div.col-lg-9
+        input.form-control(type="text")
+    div.form-group.row
+      div.col-lg-12.text-lg-right
+        button.btn.btn-info-outline(click.trigger="changeArray()") Change array
+        button.btn.btn-success-outline(click.trigger="pushToArray()") Push to array

@@ -7,36 +7,26 @@ template
       tr(popover="title.bind: title; content.bind: content; placement: left")
         td aloha
 
-  div.row
-    div.col-lg-6
+  div.col-lg-12
       h3 Popover as element
-  div.row
-    div.col-lg-6
-      div.form-group.row
-        label.form-control-label.col-lg-3 Popover Title
-        div.col-lg-8
-          select3(items.bind="items", value.two-way="popoverTitle", caption="none")
-      div.form-group.row
-        label.form-control-label.col-lg-3 Popover Placement
-        div.col-lg-6
-          select3(items.bind="placements", value.two-way="placement", options.bind="{modelValueBind:true, disableClear:true}")
-        div.col-lg-2 ${placement.name}
-      div.form-group.row
-        label.form-control-label.col-lg-3 Popover Trigger
-        div.col-lg-8
-          select3(items.bind="triggers", value.two-way="trigger")
-      div.form-group.row
-        div.col-lg-12
-          button.btn.btn-success ${trigger} me
-            popover(title.bind="popoverTitle", placement.bind="placement.name", trigger.bind="trigger")
-              h2 Hi i'm popover
-              h5 I'm on the ${placement}
-              input(type="text")
-    div.col-lg-12
-      div.form-group.row
-        label.form-control-label.col-lg-3 People
-        div.col-lg-6
-          select3(items.bind="people",
-          value.two-way="selectedPerson",
-          options.bind="{modelValueBind:true, sort: true}")
-        div.col-lg-2 ${selectedPerson.name}
+
+  div.col-lg-6
+    div.form-group.row
+      label.form-control-label.col-lg-3 Popover Title
+      div.col-lg-8
+        select3(items.bind="items", value.two-way="popoverTitle", caption="none")
+    div.form-group.row
+      label.form-control-label.col-lg-3 Popover Placement
+      div.col-lg-8
+        select3(items.bind="placements", value.two-way="placement", options.bind="{modelValueBind:true, disableClear:true}")
+    div.form-group.row
+      label.form-control-label.col-lg-3 Popover Trigger
+      div.col-lg-8
+        select3(items.bind="triggers", value.two-way="trigger")
+    div.form-group.row
+      div.col-lg-12
+        button.btn.btn-success ${trigger} me
+          popover(title.bind="popoverTitle", placement.bind="placement.name", trigger.bind="trigger")
+            h2 Hi i'm popover
+            h5 I'm on the ${placement}
+
