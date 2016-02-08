@@ -251,7 +251,7 @@ export class Grid {
   }
 
   selectRow($item, noEventNeeded) {
-    if(!$item.id){
+    if (!$item.id) {
       return;
     }
 
@@ -262,7 +262,7 @@ export class Grid {
     $item._selected = true;
     this.lastSelectedItem = $item;
 
-    if(noEventNeeded !== true) {
+    if (noEventNeeded !== true) {
       customElementHelper.dispatchEvent(this.element, 'select-grid-row', {
         $item: $item
       });
@@ -270,13 +270,13 @@ export class Grid {
   }
 
   deselectRow($item, noEventNeeded) {
-    if(!$item.id){
+    if (!$item.id) {
       return;
     }
 
     $item._selected = false;
 
-    if(noEventNeeded !== true) {
+    if (noEventNeeded !== true) {
       customElementHelper.dispatchEvent(this.element, 'deselect-grid-row', {
         $item: $item
       });
