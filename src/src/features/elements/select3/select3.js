@@ -124,6 +124,11 @@ export class Select3 {
     if (this.opts.selectHoveredOnCloseDropdown === true) {
       this.selectHoveredItem();
     }
+
+    this.taskQueue.queueTask(()=> {
+      let valueInput = this.element.getElementsByClassName('select3-value-box')[0];
+      valueInput.focus();
+    });
   }
 
   toggleDropdown() {

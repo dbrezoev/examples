@@ -2,7 +2,7 @@ template
   require(from="./select3.css")
   div.select3
     div.input-group
-      input.form-control(type="text",
+      input.form-control.select3-value-box(type="text",
         value.bind="selectedItemName",
         readonly,
         disabled.bind="disabled",
@@ -11,11 +11,14 @@ template
         mousedown.trigger="toggleDropdown()",
         keydown.trigger="onValueInputKeyPressed($event)")
       div.input-group-btn
-        button.btn.btn-secondary(disabled.bind="disabled",
+        button.btn.btn-secondary(tabindex="-1",
+          disabled.bind="disabled",
           show.bind="!opts.disableClear && value !== opts.emptyValue",
           mousedown.trigger="clearValue()")
           i.fa.fa-times
-        button.btn.btn-secondary(disabled.bind="disabled", mousedown.trigger="toggleDropdown()")
+        button.btn.btn-secondary(tabindex="-1",
+          disabled.bind="disabled",
+          mousedown.trigger="toggleDropdown()")
           i.fa(class.bind="isDropdownOpen? 'fa-caret-up' : 'fa-caret-down'")
     div.select3-dropdown(show.bind="isDropdownOpen")
       input.select3-search-box.form-control(type="text", value.bind="searchedItem",
