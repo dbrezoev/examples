@@ -36,7 +36,6 @@ System.config({
     "babel-runtime": "npm:babel-runtime@5.8.35",
     "bluebird": "github:petkaantonov/bluebird@3.2.1",
     "bootstrap": "github:twbs/bootstrap@3.3.6",
-    "components/jquery": "github:components/jquery@2.2.0",
     "core-js": "npm:core-js@2.0.3",
     "dialog": "features/dialog/index",
     "fetch": "github:github/fetch@0.10.1",

@@ -84,7 +84,6 @@
       "aurelia-validation": "npm:aurelia-validation@^0.6.1",
       "bluebird": "github:petkaantonov/bluebird@^3.2.1",
       "bootstrap": "github:twbs/bootstrap@^3.3.5",
-      "components/jquery": "github:components/jquery@^2.2.0",
       "fetch": "github:github/fetch@^0.10.1",
       "font-awesome": "npm:font-awesome@^4.5.0",
       "hubspot/tether": "github:hubspot/tether@^1.1.1",
