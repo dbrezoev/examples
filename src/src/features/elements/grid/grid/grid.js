@@ -30,9 +30,11 @@ export class Grid {
   @bindable columnsMetadata = null;
 
   // Selection
-  @bindable selection = false; // single || multiselect
+  @bindable selection = false; // single-withDeselect || single-noDeselect || multiselect-withDeselect || multiselect-noDeselect
   @bindable selectedItem = undefined;
   lastSelectedItem = undefined;
+  isSingleSelect = true;
+  isWithDeselect = true;
 
   // Misc
   @bindable noRowsMessage = "";
@@ -111,6 +113,16 @@ export class Grid {
     this.rowTemplate.appendChild(row);
 
     this._buildTemplates();
+
+    if (this.selection !== false) {
+      if (this.selection.indexOf('noDeselect') > -1) {
+        this.isWithDeselect = false;
+      }
+      if (this.selection.indexOf('multiselect') > -1) {
+        this.isSingleSelect = false;
+      }
+    }
+
     this.selectedItemChanged(this.selectedItem);
   }
 
@@ -242,7 +254,7 @@ export class Grid {
   /* === Change handlers === */
   rowClicked($item) {
     if (this.selection !== false) {
-      if ($item._selected === true) {
+      if ($item._selected === true && this.isWithDeselect) {
         this.deselectRow($item);
       } else {
         this.selectRow($item);
@@ -255,7 +267,11 @@ export class Grid {
       return;
     }
 
-    if (this.selection === 'single' && this.lastSelectedItem !== undefined) {
+    if ($item === this.lastSelectedItem && !this.isWithDeselect) {
+      return;
+    }
+
+    if (this.isSingleSelect && this.lastSelectedItem !== undefined) {
       this.deselectRow(this.lastSelectedItem, noEventNeeded);
     }
 
@@ -276,7 +292,7 @@ export class Grid {
 
     $item._selected = false;
 
-    if (noEventNeeded !== true) {
+    if (noEventNeeded !== true && this.isWithDeselect) {
       customElementHelper.dispatchEvent(this.element, 'deselect-grid-row', {
         $item: $item
       });
@@ -284,6 +300,7 @@ export class Grid {
   }
 
   selectedItemChanged(newValue, oldValue) {
+    // todo: fix for multiselect
     if (newValue === oldValue) {
       return;
     }
