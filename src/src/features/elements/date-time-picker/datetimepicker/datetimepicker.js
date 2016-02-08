@@ -2,6 +2,7 @@
 import $ from 'jquery';
 import 'Eonasdan/bootstrap-datetimepicker';
 import moment from 'moment';
+import {customElementHelper} from 'utils';
 
 @customElement('datetimepicker')
 @inject(Element)
@@ -50,7 +51,7 @@ export class Datepicker {
       this.value = event.date;
       //Find better way to invoke observable before function!!!
       setTimeout(function() {
-        self.element.dispatchEvent(new Event('change'));
+        customElementHelper.dispatchEvent(self.element, 'change', null);
       });
     });
 
