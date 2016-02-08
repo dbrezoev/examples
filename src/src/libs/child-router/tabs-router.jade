@@ -3,4 +3,4 @@ template
     li.nav-item(repeat.for="navModel of router.navigation")
       a.nav-link(href.bind="navModel.href", title.bind="navModel.title", class="${ navModel.isActive ? 'active' : '' }") ${navModel.title}
 
-  router-view
+  router-view(style="height: calc(100% - 32px); overflow-y: auto")
