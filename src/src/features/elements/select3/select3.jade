@@ -11,24 +11,20 @@ template
         mousedown.trigger="toggleDropdown()",
         keydown.trigger="onValueInputKeyPressed($event)")
       div.input-group-btn
-        button.btn.btn-secondary(show.bind="!opts.disableClear && value", disabled.bind="disabled", click.trigger="clearValue()")
+        button.btn.btn-secondary(disabled.bind="disabled",
+          show.bind="!opts.disableClear && value !== opts.emptyValue",
+          mousedown.trigger="clearValue()")
           i.fa.fa-times
-        button.btn.btn-secondary(disabled.bind="disabled", click.trigger="toggleDropdown()")
+        button.btn.btn-secondary(disabled.bind="disabled", mousedown.trigger="toggleDropdown()")
           i.fa(class.bind="isDropdownOpen? 'fa-caret-up' : 'fa-caret-down'")
     div.select3-dropdown(show.bind="isDropdownOpen")
-      //, focusout.trigger="closeDropdown()")
-      input.select3-search-box.form-control(type="text", value.bind="searchedItem", keydown.trigger="onSearchInputKeyPressed($event)")
+      input.select3-search-box.form-control(type="text", value.bind="searchedItem",
+        keydown.trigger="onSearchInputKeyPressed($event)",
+        focusout.trigger="closeDropdown()")
       ul
         li.select3-no-results-message(if.bind="filteredData.length === 0") ${noResultsMessage}
         li(repeat.for="datum of filteredData",
-          click.trigger="selectItem(datum)",
+          mousedown.trigger="selectItem(datum)",
           innerhtml.bind="datum.highlightedName",
           mouseenter.trigger="setHover(datum)",
           class.bind="datum.item[opts.id] === hoveredDatum.item[opts.id] ? 'hovered' : datum.item[opts.name] === selectedItemName ? 'selected' : ''")
-
-
-
-  //select.form-control(disabled.bind="disabled", value.bind="value")
-    option(if.bind="caption", value="") ${caption}
-    option(if.bind="opts.modelValueBind === true", repeat.for="item of items", model.bind="item") ${item[opts.name]}
-    option(if.bind="opts.modelValueBind === false", repeat.for="item of items", model.bind="item[opts.id]") ${item[opts.name]}

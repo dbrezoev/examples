@@ -1,12 +1,10 @@
-import {inject, customElement, bindable, bindingMode, BindingEngine} from 'aurelia-framework';
+import {inject, customElement, bindable, bindingMode, BindingEngine, TaskQueue} from 'aurelia-framework';
 import {Tokenizers} from './tokenizers'
 import {Datum} from './datum'
 import {KEYS} from './keys'
 
 @customElement('select3')
-@inject(Element, BindingEngine)
-
-// todo: max-height in dialog
+@inject(Element, BindingEngine, TaskQueue)
 export class Select3 {
   @bindable items = [];
   @bindable({defaultBindingMode: bindingMode.twoWay}) value = null;
@@ -32,9 +30,10 @@ export class Select3 {
     selectHoveredOnCloseDropdown: false
   };
 
-  constructor(element, bindingEngine) {
+  constructor(element, bindingEngine, taskQueue) {
     this.element = element;
     this.bindingEngine = bindingEngine;
+    this.taskQueue = taskQueue;
   }
 
   bind() {
@@ -108,14 +107,13 @@ export class Select3 {
   openDropdown() {
     this.isDropdownOpen = true;
 
-    // todo: fix this!!!
     // focus on search box when opened
-    setTimeout(()=> {
+    this.taskQueue.queueTask(()=> {
       this.reorientDropdownIfNeeded();
 
       let searchInput = this.element.getElementsByClassName('select3-search-box')[0];
       searchInput.focus();
-    }, 0);
+    });
 
   }
 
@@ -200,10 +198,10 @@ export class Select3 {
       // first is hovered -> hover last
       this.hoveredDatum = this.filteredData[this.filteredData.length - 1];
 
-      // todo: fix this!!!
-      setTimeout(()=> {
+      this.taskQueue.queueMicroTask(()=> {
         this.scrollHoveredLiIntoView(false);
-      }, 0);
+      });
+
       return;
     } else {
       // hover previous
@@ -226,10 +224,9 @@ export class Select3 {
       // last is hovered -> hover first
       this.hoveredDatum = this.filteredData[0];
 
-      // todo: fix this!!!
-      setTimeout(()=> {
+      this.taskQueue.queueMicroTask(()=> {
         this.scrollHoveredLiIntoView(true);
-      }, 0);
+      });
       return;
     } else {
       // hover next
@@ -310,10 +307,9 @@ export class Select3 {
     // hover first datum
     this.hoveredDatum = this.filteredData.length > 0 ? this.filteredData[0] : null;
 
-    // todo: fix this!!! 
-    setTimeout(() => {
+    this.taskQueue.queueTask(() => {
       this.scrollHoveredLiIntoView(true);
-    }, 0);
+    });
 
   }
 

@@ -57,7 +57,7 @@ export class Datum {
   }
 
   _splitOriginalItemNameToParts() {
-    this.originalName = this.item[this.opts.name];
+    this.originalName = this.item._escapedName;
     this.highlightedNameParts = {};
     let currentIndex = 0;
     this.tokens.forEach(token => {
@@ -85,9 +85,9 @@ export class Datum {
     });
   }
 
-  _datumTokenizer(datum) {
+  _datumTokenizer(item) {
     // add here if we want matching by more fields
-    let nameTokens = Tokenizers.nonword(datum[this.opts.name]);
+    let nameTokens = Tokenizers.nonword(item._escapedName);
     return nameTokens;
   }
 }
