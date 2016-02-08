@@ -113,6 +113,7 @@ export class Select3 {
 
       let searchInput = this.element.getElementsByClassName('select3-search-box')[0];
       searchInput.focus();
+      searchInput.select();
     });
 
   }
