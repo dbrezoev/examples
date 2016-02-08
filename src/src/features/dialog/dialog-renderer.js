@@ -162,10 +162,6 @@ export class DialogRenderer {
       //modalContainer.style.height = child.offsetHeight + 20 + 'px';
       const modalContainerHeight = child.offsetHeight + 20;
 
-      // todo: high priority: Tsvety Fix! IE, chrome, FF
-      //modalContainer.style.width = "600px";
-      //modalContainer.style.height = "400px";
-
       let vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
       modalContainer.style.left = Math.max((vw - modalContainer.offsetWidth) / 2, 0) + 'px';
 

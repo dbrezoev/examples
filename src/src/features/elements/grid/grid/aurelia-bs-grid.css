@@ -20,7 +20,7 @@ grid .grid-content-container {
 }
 
 
-// todo: trow styles?
+/* todo: trow styles? */
 
 grid .grid-container {
   position: relative;
@@ -115,7 +115,7 @@ grid .progress-bar {
 
 /* filter styles */
 grid table.grid-header-table > thead > tr.grid-column-filters > th {
-  padding: 0px;
+  padding: 0;
   vertical-align: middle;
 }
 
@@ -139,7 +139,7 @@ grid table > thead > tr.grid-column-filters > th > div.filter-datetime table > t
 
 grid table > thead > tr.grid-column-filters > th > div > datepicker .bootstrap-datetimepicker-widget td,
 grid table.grid-header-table > thead > tr.grid-column-filters > th > div.filter-datetime table th,  
-grid table.grid-header-table > thead > tr.grid-column-filters > th > div.filter-datetime table td,  {
+grid table.grid-header-table > thead > tr.grid-column-filters > th > div.filter-datetime table td  {
   border: none;
   padding: 0;
   background-color: red;
