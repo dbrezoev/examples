@@ -6,7 +6,7 @@ template
     selection="single",
     select-grid-row.trigger="select($event.detail.$item)",
     deselect-grid-row.trigger="deselect($event.detail.$item)",
-    selected-item.bind="selectedItem",
+    selected-item.bind="_selectedItem",
     style="overflow-y: hidden")
       grid-row
         grid-col(heading.bind="leftHeading", nosort)
@@ -23,7 +23,7 @@ template
     selection="single",
     select-grid-row.trigger="select($event.detail.$item)",
     deselect-grid-row.trigger="deselect($event.detail.$item)",
-    selected-item.bind="selectedItem",
+    selected-item.bind="_selectedItem",
     style="overflow-y: hidden")
       grid-row
         grid-col(heading.bind="rightHeading", nosort)
