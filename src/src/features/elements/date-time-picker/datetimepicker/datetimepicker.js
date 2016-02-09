@@ -1,4 +1,4 @@
-﻿import {inject, customElement, bindable} from 'aurelia-framework';
+﻿import {inject, customElement, bindable, bindingMode} from 'aurelia-framework';
 import $ from 'jquery';
 import 'Eonasdan/bootstrap-datetimepicker';
 import moment from 'moment';
@@ -7,9 +7,10 @@ import {customElementHelper} from 'utils';
 @customElement('datetimepicker')
 @inject(Element)
 export class Datepicker {
-  @bindable value = null;
+  @bindable({defaultBindingMode: bindingMode.twoWay}) value = null;
   @bindable options = null;
   @bindable disabled = false;
+  @bindable readonly = false;
 
   constructor(element) {
     this.element = element;
@@ -49,10 +50,6 @@ export class Datepicker {
 
     this.datepicker.on('dp.change', (event) => {
       this.value = event.date;
-      //Find better way to invoke observable before function!!!
-      setTimeout(function() {
-        customElementHelper.dispatchEvent(self.element, 'change', null);
-      });
     });
 
     this.valueChanged(this.value);
@@ -65,7 +62,7 @@ export class Datepicker {
       return;
     }
 
-    if (newValue.isSame(oldValue)) {
+    if (newValue.isSame(oldValue) && oldValue !== undefined) {
       return;
     }
 

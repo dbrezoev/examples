@@ -10,6 +10,7 @@ export class Datepicker {
   @bindable({defaultBindingMode: bindingMode.twoWay}) value = null;
   @bindable options = null;
   @bindable disabled = false;
+  @bindable readonly = false;
 
   constructor(element) {
     this.element = element;
@@ -50,10 +51,6 @@ export class Datepicker {
 
     this.datepicker.on('dp.change', (event) => {
       this.value = event.date;
-      //Find better way to invoke observable before function!!!
-      setTimeout(function() {
-        customElementHelper.dispatchEvent(self.element, 'change', null);
-      });
     });
 
     this.valueChanged(this.value);
@@ -66,7 +63,7 @@ export class Datepicker {
       return;
     }
 
-    if (newValue.isSame(oldValue)) {
+    if (newValue.isSame(oldValue) && oldValue !== undefined) {
       return;
     }
 

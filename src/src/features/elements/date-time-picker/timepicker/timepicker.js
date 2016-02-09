@@ -1,14 +1,16 @@
-﻿import {inject, customElement, bindable} from 'aurelia-framework';
+﻿import {inject, customElement, bindable, bindingMode} from 'aurelia-framework';
 import $ from 'jquery';
 import 'Eonasdan/bootstrap-datetimepicker';
 import moment from 'moment';
-import {Timespan} from 'features/utils/index';
+import {Timespan} from 'utils';
 
 @customElement('timepicker')
 @inject(Element)
 export class Timepicker {
-  @bindable value = null;
+  @bindable({defaultBindingMode: bindingMode.twoWay}) value = null;
   @bindable options = null;
+  @bindable disabled = false;
+  @bindable readonly = false;
 
   constructor(element) {
     this.element = element;
@@ -58,14 +60,13 @@ export class Timepicker {
 
   valueChanged(newValue, oldValue) {
     if (newValue === null || newValue === undefined || newValue === false) {
-      this.$element.val('');
-      this.value = undefined;
+      let input = this.element.firstElementChild.firstElementChild;
+      input.value = '';
       return;
     }
 
-
     if (newValue.constructor.name !== 'Timespan') {
-      throw new Error('This has to be moment type.');
+      throw new Error('This has to be Timespan type.');
     }
 
     const areSame = newValue.equals(oldValue);

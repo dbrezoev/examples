@@ -3,6 +3,6 @@ template
   require(from="../style.css")
 
   div.input-group.date
-    input.form-control(type="text", disabled.bind="disabled")
-    span.input-group-addon
+    input.form-control(type="text", disabled.bind="disabled", readonly.bind="readonly")
+    span.input-group-addon(class="${disabled ? 'cursor-disabled' : ''} ${readonly ? 'cursor-readonly' : ''}")
       span.fa.fa-calendar

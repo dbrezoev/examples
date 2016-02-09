@@ -1,5 +1,7 @@
 template
-  button.btn.btn-sm.btn-secondary(click.delegate="buttonClicked()", disabled.bind="disabled", title.bind="title", class.bind="type")
+  button.btn.btn-sm(click.delegate="buttonClicked()",
+    title.bind="title",
+    class="${disabled ? 'disabled ' : ''} ${selected ? 'active btn-primary' : 'btn-secondary'}")
     i.fa.fa-lg(class.bind="icon", if.bind="icon")
     span(if.bind="name") &nbsp; ${name}
     content

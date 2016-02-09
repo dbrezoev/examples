@@ -5,6 +5,6 @@ export class DateTimeFormatValueConverter {
     if (format) {
       return moment(value).format(format);
     }
-    return moment(value).format('LLL');
+    return value ? moment(value).format('LLL') : '';
   }
 }

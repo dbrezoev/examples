@@ -19,7 +19,7 @@ export class Popover {
   _getAncestor() {
     let ancestor = this.element.parentElement;
 
-    for(let i = 1; i < this.ancestorLevels; i++) {
+    for (let i = 1; i < this.ancestorLevels; i++) {
       ancestor = ancestor.parentElement;
     }
 
@@ -57,7 +57,7 @@ export class Popover {
   }
 
   _reinit() {
-    if(this.isParentInitialized) {
+    if (this.isParentInitialized) {
       if (this.isPopoverInitialized) {
         this._dispose();
       }
@@ -67,7 +67,7 @@ export class Popover {
     }
   }
 
-  _init(){
+  _init() {
     if (this.trigger === 'insideClick') {
       this.$parentElement.on('click', () => {
         this.$parentElement.popover('toggle');
@@ -87,7 +87,7 @@ export class Popover {
     this.$parentElement.popover('hide');
   }
 
-  _dispose(){
+  _dispose() {
     this.$parentElement.popover('dispose');
   }
 
@@ -100,10 +100,10 @@ export class Popover {
       container: 'body',
       html: true,
       template: '<div class="popover" role="tooltip">' +
-                  '<div class="popover-arrow"></div>' +
-                  (this.title ? '<h3 class="popover-title"></h3>' : '') +
-                  '<div class="popover-content"></div>' +
-                '</div>'
+      '<div class="popover-arrow"></div>' +
+      (this.title ? '<h3 class="popover-title"></h3>' : '') +
+      (this.element.children.length > 0 ? '<div class="popover-content"></div>' : '') +
+      '</div>'
     };
   }
 

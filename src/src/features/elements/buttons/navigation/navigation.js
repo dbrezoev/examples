@@ -7,6 +7,7 @@ export class NavigationButton {
   @bindable onClick = null;
   @bindable title = '';
   @bindable icon = '';
+  @bindable selected = false;
 
   constructor(element) {
     this.element = element;
