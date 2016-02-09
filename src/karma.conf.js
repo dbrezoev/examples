@@ -21,12 +21,20 @@ module.exports = function(config) {
       }
     },
 
+    proxies: {
+        '/base/libs' : '/base/src/libs',
+        '/base/features' : '/base/src/features',
+        '/base/jspm_packages/github/HubSpot' : '/base/jspm_packages/github/hubspot'
+    },
+
     // list of files / patterns to load in the browser
-    files: [],
+    files: [
+    'jspm_packages/github/components/jquery@2.2.0/jquery.min.js', 
+    'src/libs/jquery.signalR.js',
+    'src/libs/jubs.js'
+    ],
 
     // list of files to exclude
-    exclude: [],
-
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
@@ -34,6 +42,7 @@ module.exports = function(config) {
       'test/**/*.js': ['babel'],
       'src/**/*.js': ['babel']
     },
+
     'babelPreprocessor': {
       options: {
         sourceMap: 'inline',
@@ -48,7 +57,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['mocha'],
 
     // web server port
     port: 9876,

@@ -8,7 +8,7 @@ gulp.task('test', function(done) {
   new Karma({
     configFile: __dirname + '/../../karma.conf.js',
     singleRun: true
-  }, done).start();
+  }).start();
 });
 
 /**
@@ -17,7 +17,7 @@ gulp.task('test', function(done) {
 gulp.task('tdd', function(done) {
   new Karma({
     configFile: __dirname + '/../../karma.conf.js'
-  }, done).start();
+  }).start();
 });
 
 /**
@@ -45,5 +45,5 @@ gulp.task('cover', function(done) {
         { type: 'text' }
       ]
     }
-  }, done).start();
+  }).start();
 });
