@@ -1,0 +1,60 @@
+template
+  h1 Test Date Time Picker
+  div.row.m-t-3
+    div.col-lg-12
+      h3 Enabled
+      div.row
+        div.col-lg-6
+          datepicker(value.bind="date")
+        div.col-lg-6
+          div ${date | dateFormat}
+      div.row
+        div.col-lg-6
+          datetimepicker(value.bind="datetime")
+        div.col-lg-6
+          div ${datetime | dateTimeFormat}
+      div.row
+        div.col-lg-6
+          timepicker(value.bind="time")
+        div.col-lg-6
+          div ${time}
+      button.btn.btn-primary(click.trigger="changeDates()") Change dates
+      button.btn.btn-primary(click.trigger="clearDatesNull()") Clear dates - Null
+      button.btn.btn-primary(click.trigger="clearDatesUndefined()") Clear dates - Undefined
+
+  div.row.m-t-3
+    div.col-lg-6
+      h3 Readonly
+      datepicker(value.bind="date", readonly)
+      datetimepicker(value.bind="datetime", readonly)
+      timepicker(value.bind="time", readonly)
+
+  div.row.m-t-3
+    div.col-lg-6
+      h3 Disabled
+      datepicker(value.bind="date", disabled)
+      datetimepicker(value.bind="datetime", disabled)
+      timepicker(value.bind="time", disabled)
+
+  div.row.m-t-3
+    div.col-lg-6
+      h3 Readonly binded
+      datepicker(value.bind="date", readonly.bind="readonly")
+      datetimepicker(value.bind="datetime", readonly.bind="readonly")
+      timepicker(value.bind="time", readonly.bind="readonly")
+      button.btn.btn-primary(click.trigger="toggleReadonly()") Make readonly ${!readonly}
+
+  div.row.m-t-3
+    div.col-lg-6
+      h3 Disabled binded
+      datepicker(value.bind="date", disabled.bind="disabled")
+      datetimepicker(value.bind="datetime", disabled.bind="disabled")
+      timepicker(value.bind="time", disabled.bind="disabled")
+      button.btn.btn-primary(click.trigger="toggleDisabled()") Make disabled ${!disabled}
+
+  div.row.m-t-3
+    div.col-lg-6
+      h3 Readonly and disabled
+      datepicker(value.bind="date", readonly, disabled)
+      datetimepicker(value.bind="datetime", readonly, disabled)
+      timepicker(value.bind="time", readonly, disabled)

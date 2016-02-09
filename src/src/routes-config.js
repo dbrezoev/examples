@@ -49,6 +49,12 @@ export class RoutesConfig {
       nav: true,
       title: 'Test Grid'
     }, {
+	  route: 'test-date-time-picker',
+      name: 'test-date-time-picker',
+      moduleId: './area/test-date-time-picker/test-date-time-picker',
+      nav: true,
+      title: 'Test Date Time Picker'
+    }, {
       route: 'test-tree-view',
       name: 'test-tree-view',
       moduleId: './area/test-treeview//test-treeview',
