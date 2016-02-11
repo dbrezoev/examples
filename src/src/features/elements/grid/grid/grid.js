@@ -92,6 +92,13 @@ export class Grid {
     this.storeManager = new StoreManager(this);
 
     if (this.sortOptions !== undefined) {
+      let maxColumnId = this.columns[this.columns.length - 1].id;
+      this.sortOptions = this.sortOptions.filter(sortOption => {
+        let isValidColumnId = sortOption.columnId >= 1 && sortOption.columnId <= maxColumnId;
+        let isValidSortDirection = sortOption.sortDirection === 'asc' || sortOption.sortDirection === 'desc';
+        return isValidColumnId && isValidSortDirection;
+      });
+
       // Apply sort options (cached)
       let sorts = this.sortOptions.map(sortOption => {
         let column = this.columns.find(c => c.id == sortOption.columnId);

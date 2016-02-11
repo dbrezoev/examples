@@ -24,7 +24,7 @@ export class Filters {
       this.sortOptions = sortCache;
     } else {
       this.sortOptions = [{
-        columnId: 11,
+        columnId: 4,
         sortDirection: 'desc'
       }, {
         columnId: 1,
