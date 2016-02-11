@@ -93,10 +93,15 @@ export class Grid {
 
     if (this.sortOptions !== undefined) {
       let maxColumnId = this.columns[this.columns.length - 1].id;
-      this.sortOptions = this.sortOptions.filter(sortOption => {
+      this.sortOptions.forEach(sortOption => {
         let isValidColumnId = sortOption.columnId >= 1 && sortOption.columnId <= maxColumnId;
+        if(isValidColumnId === false){
+          throw new Error(`Invalid column id: ${sortOption.columnId}. Column Id should be an integer number between 1 and ${maxColumnId}.`);
+        }
         let isValidSortDirection = sortOption.sortDirection === 'asc' || sortOption.sortDirection === 'desc';
-        return isValidColumnId && isValidSortDirection;
+        if(isValidSortDirection === false){
+          throw new Error(`Invalid sort direction: '${sortOption.sortDirection}'. Sort direction should be one of the following: 'asc', 'desc' or undefined.`);
+        }
       });
 
       // Apply sort options (cached)

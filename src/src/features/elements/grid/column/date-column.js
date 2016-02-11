@@ -29,7 +29,7 @@ export class DateColumn extends BaseColumn {
       throw new Error('Argument exception! Value is not defined!');
     }
 
-    const date = moment(value);
+    const date = value && value.constructor.name === 'Moment' ? value : moment(value);
 
     if (date.isValid() === false) {
       if (throwErrorIfNotValidDate) {
