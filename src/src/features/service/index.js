@@ -4,6 +4,7 @@ export {Logger} from './logger';
 export {Session} from './session';
 
 export {Http} from './http-client/http';
+export {HubFactory} from './ws/hub-factory';
 export {HttpRequestStartedMessage, HttpRequestFinishedMessage,
   HttpBadRequestMessage, HttpServerErrorRequestMessage,
   HttpSessionTimedOutMessage} from './http-client/http-client-messages';
