@@ -1,8 +1,8 @@
 import {BaseColumn} from './base-column';
 
 export class InputColumn extends BaseColumn {
-  constructor(config, template, grid) {
-    super(config, template, grid);
+  constructor(config, template, grid, columnId) {
+    super(config, template, grid, columnId);
 
     this.filterValue = config['filter-value'];
     if (this.filterValue === undefined) {

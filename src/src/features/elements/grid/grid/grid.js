@@ -21,7 +21,7 @@ export class Grid {
 
   // Sortination
   @bindable sortable = true;
-
+  @bindable sortOptions = undefined;
 
   // Column defs
   @bindable showColumnHeaders = true;
@@ -90,6 +90,16 @@ export class Grid {
     }
 
     this.storeManager = new StoreManager(this);
+
+    if(this.sortOptions !== undefined) {
+      // Apply sort options (cached)
+      let sorts = this.sortOptions.map(sortOption => {
+        let column = this.columns.find(c => c.id == sortOption.columnId);
+        let sort = column.setSortDirection(sortOption.sortDirection);
+        return sort;
+      });
+      this.storeManager.getDataStore().applySortOptions(sorts);
+    }
 
     // Listen for window resize so we can re-flow the grid layout
     this.resizeListener = window.addEventListener('resize', (() => {

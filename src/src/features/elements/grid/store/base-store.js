@@ -77,4 +77,9 @@ export class BaseStore {
       this.sortProcessingOrder.push(sort);
     }
   }
+
+  applySortOptions(sorts) {
+    this.sortProcessingOrder = [];
+    sorts.forEach(sort => this.changeSortProcessingOrder(sort));
+  }
 }

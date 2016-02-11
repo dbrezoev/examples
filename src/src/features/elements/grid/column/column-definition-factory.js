@@ -9,6 +9,7 @@ export class ColumnDefinitionFactory {
     this.colDefinitions = gridDefinition.cols;
     this.rowAttrs = gridDefinition.rowAttrs;
     this.grid = grid;
+    this.columnId = 1;
   }
 
   create(columnsMetadata) {
@@ -41,24 +42,25 @@ export class ColumnDefinitionFactory {
     let col;
     switch (attr.filter) {
     case gridFilter.input:
-      col = new InputColumn(attr, html, this.grid);
+      col = new InputColumn(attr, html, this.grid, this.columnId);
       break;
     case gridFilter.dateFromTo:
-      col = new DateColumn(attr, html, this.grid);
+      col = new DateColumn(attr, html, this.grid, this.columnId);
       break;
     case gridFilter.boolean:
-      col = new BooleanColumn(attr, html, this.grid);
+      col = new BooleanColumn(attr, html, this.grid, this.columnId);
       break;
     case gridFilter.select:
-      col = new SelectColumn(attr, html, this.grid);
+      col = new SelectColumn(attr, html, this.grid, this.columnId);
       break;
     case undefined:
-      col = new InputColumn(attr, html, this.grid);
+      col = new InputColumn(attr, html, this.grid, this.columnId);
       break;
     default:
       throw new Error(`No such grid filter defined: ${attr.filter}!`);
     }
 
+    this.columnId++;
     return col;
   }
 }

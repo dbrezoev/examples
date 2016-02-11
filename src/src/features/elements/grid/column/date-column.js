@@ -2,8 +2,8 @@ import {BaseColumn} from './base-column';
 import moment from 'moment';
 
 export class DateColumn extends BaseColumn {
-  constructor(config, template, grid) {
-    super(config, template, grid);
+  constructor(config, template, grid, columnId) {
+    super(config, template, grid, columnId);
 
     this.filterValueFrom = this._setFilterDateValue('from') || this._subscribe('from.bind');
     this.filterValueTo = this._setFilterDateValue('to') || this._subscribe('to.bind');

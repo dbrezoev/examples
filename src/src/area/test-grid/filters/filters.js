@@ -19,6 +19,14 @@ export class Filters {
       };
     });
 
+    this.sortOptions = [{
+      columnId: 4,
+      sortDirection: 'desc'
+    }, {
+      columnId: 1,
+      sortDirection: 'asc'
+    }];
+
     this.selectedType = 1;
     this.num = '';
     this.boolValue = false;
