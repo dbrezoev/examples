@@ -3,6 +3,7 @@ import {Logger} from 'service';
 import moment from 'moment';
 
 let filtersCache = {};
+let sortCache = [];
 
 @inject(Logger)
 export class Filters {
@@ -19,13 +20,17 @@ export class Filters {
       };
     });
 
-    this.sortOptions = [{
-      columnId: 4,
-      sortDirection: 'desc'
-    }, {
-      columnId: 1,
-      sortDirection: 'asc'
-    }];
+    if (sortCache.length > 0) {
+      this.sortOptions = sortCache;
+    } else {
+      this.sortOptions = [{
+        columnId: 11,
+        sortDirection: 'desc'
+      }, {
+        columnId: 1,
+        sortDirection: 'asc'
+      }];
+    }
 
     this.selectedType = 1;
     this.num = '';
@@ -40,6 +45,8 @@ export class Filters {
   }
 
   detached() {
+    sortCache = this.sortOptions;
+
     filtersCache = {
       selectedType: this.selectedType,
       num: this.num,

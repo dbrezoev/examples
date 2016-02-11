@@ -1,6 +1,6 @@
 import {customElement, TaskQueue, useView, bindable, inject, BindingEngine,
   processContent, TargetInstruction, ViewCompiler, ViewSlot, ViewResources,
-  Container} from 'aurelia-framework';
+  Container, bindingMode} from 'aurelia-framework';
 import {processUserTemplate} from './proccess-user-template';
 import {ColumnDefinitionFactory} from '../column/column-definition-factory';
 import {StoreManager} from '../store/store-manager';
@@ -21,7 +21,7 @@ export class Grid {
 
   // Sortination
   @bindable sortable = true;
-  @bindable sortOptions = undefined;
+  @bindable({defaultBindingMode: bindingMode.twoWay}) sortOptions = undefined;
 
   // Column defs
   @bindable showColumnHeaders = true;
@@ -91,7 +91,7 @@ export class Grid {
 
     this.storeManager = new StoreManager(this);
 
-    if(this.sortOptions !== undefined) {
+    if (this.sortOptions !== undefined) {
       // Apply sort options (cached)
       let sorts = this.sortOptions.map(sortOption => {
         let column = this.columns.find(c => c.id == sortOption.columnId);
@@ -203,7 +203,15 @@ export class Grid {
   }
 
   changeSort(sort) {
-    this.storeManager.getDataStore().changeSortProcessingOrder(sort);
+    let sortOrder = this.storeManager.getDataStore().changeSortProcessingOrder(sort);
+    this.sortOptions = sortOrder.map(sort => {
+      let sortOption = {
+        columnId: sort.column.id,
+        sortDirection: sort.value
+      };
+      return sortOption;
+    });
+
     this.refresh();
   }
 

@@ -76,6 +76,8 @@ export class BaseStore {
     if (sort.value !== undefined) {
       this.sortProcessingOrder.push(sort);
     }
+
+    return this.sortProcessingOrder;
   }
 
   applySortOptions(sorts) {
