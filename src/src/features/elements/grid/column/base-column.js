@@ -6,12 +6,13 @@ export class BaseColumn {
     grid: true
   };
 
-  constructor(config, template, grid) {
+  constructor(config, template, grid, columnId) {
     this._subscriptions = [];
     this.config = config;
     this.template = template;
     this.field = config.field;
     this.grid = grid;
+    this.id = columnId;
 
     this.heading = config.heading;
     if (this.heading === undefined) {
@@ -85,6 +86,17 @@ export class BaseColumn {
       value: this.sortDirection,
       column: this
     });
+  }
+
+  setSortDirection(sortDirection){
+    this.sortDirection = sortDirection;
+    let sort = {
+      name: this.field,
+      value: this.sortDirection,
+      column: this
+    };
+
+    return sort;
   }
 
   isSortDirectionDesc() {

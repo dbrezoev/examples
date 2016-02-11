@@ -1,6 +1,6 @@
 import {customElement, TaskQueue, useView, bindable, inject, BindingEngine,
   processContent, TargetInstruction, ViewCompiler, ViewSlot, ViewResources,
-  Container} from 'aurelia-framework';
+  Container, bindingMode} from 'aurelia-framework';
 import {processUserTemplate} from './proccess-user-template';
 import {ColumnDefinitionFactory} from '../column/column-definition-factory';
 import {StoreManager} from '../store/store-manager';
@@ -21,7 +21,7 @@ export class Grid {
 
   // Sortination
   @bindable sortable = true;
-
+  @bindable({defaultBindingMode: bindingMode.twoWay}) sortOptions = undefined;
 
   // Column defs
   @bindable showColumnHeaders = true;
@@ -90,6 +90,23 @@ export class Grid {
     }
 
     this.storeManager = new StoreManager(this);
+
+    if (this.sortOptions !== undefined) {
+      let maxColumnId = this.columns[this.columns.length - 1].id;
+      this.sortOptions = this.sortOptions.filter(sortOption => {
+        let isValidColumnId = sortOption.columnId >= 1 && sortOption.columnId <= maxColumnId;
+        let isValidSortDirection = sortOption.sortDirection === 'asc' || sortOption.sortDirection === 'desc';
+        return isValidColumnId && isValidSortDirection;
+      });
+
+      // Apply sort options (cached)
+      let sorts = this.sortOptions.map(sortOption => {
+        let column = this.columns.find(c => c.id == sortOption.columnId);
+        let sort = column.setSortDirection(sortOption.sortDirection);
+        return sort;
+      });
+      this.storeManager.getDataStore().applySortOptions(sorts);
+    }
 
     // Listen for window resize so we can re-flow the grid layout
     this.resizeListener = window.addEventListener('resize', (() => {
@@ -193,7 +210,15 @@ export class Grid {
   }
 
   changeSort(sort) {
-    this.storeManager.getDataStore().changeSortProcessingOrder(sort);
+    let sortOrder = this.storeManager.getDataStore().changeSortProcessingOrder(sort);
+    this.sortOptions = sortOrder.map(sort => {
+      let sortOption = {
+        columnId: sort.column.id,
+        sortDirection: sort.value
+      };
+      return sortOption;
+    });
+
     this.refresh();
   }
 

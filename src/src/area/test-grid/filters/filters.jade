@@ -18,7 +18,7 @@ template
     datepicker(value.bind="filterDateFrom", style="width:200px")
 
   hr
-  grid(show-filters.bind="showFilters", data.bind="data")
+  grid(show-filters.bind="showFilters", data.bind="data", sort-options.bind="sortOptions")
     grid-row
       grid-col(heading="ID", field="id", width="200", filter="input", filter-value.bind="num")
         i column template: 
