@@ -13,7 +13,7 @@ export class ColumnsMetadata {
       heading: 'ID',
       field: 'id',
       filter: 'input',
-      style: 'width: 200px;'
+      width: 200
     }, {
       heading: 'Name',
       field: 'name'

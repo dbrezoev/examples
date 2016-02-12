@@ -3,7 +3,7 @@ template
   div(style="height: 200px;border:1px solid red;")
     grid(show-filters.bind="true", height="auto", data.bind="data")
       grid-row(popover="view: ./popover-view.html; placement: top; trigger: insideClick; width: 250")
-        grid-col(heading="ID", field="id", style="width:200px;", filter="input")
+        grid-col(heading="ID", field="id", width="200", filter="input")
           | This is a
           i column template
           | :

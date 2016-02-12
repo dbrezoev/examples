@@ -137,13 +137,13 @@ grid table > thead > tr.grid-column-filters > th > div.filter-datetime table > t
   padding: 0;
 }
 
-grid table > thead > tr.grid-column-filters > th > div > datepicker .bootstrap-datetimepicker-widget td,
-grid table.grid-header-table > thead > tr.grid-column-filters > th > div.filter-datetime table th,  
-grid table.grid-header-table > thead > tr.grid-column-filters > th > div.filter-datetime table td  {
-  border: none;
-  padding: 0;
-  background-color: red;
-}
+/*grid table > thead > tr.grid-column-filters > th > div > datepicker .bootstrap-datetimepicker-widget td,*/
+/*grid table.grid-header-table > thead > tr.grid-column-filters > th > div.filter-datetime table th,  */
+/*grid table.grid-header-table > thead > tr.grid-column-filters > th > div.filter-datetime table td  {*/
+  /*border: none;*/
+  /*padding: 0;*/
+  /*!*background-color: red;*!*/
+/*}*/
 
 grid table.grid-header-table > thead > tr.grid-column-filters > th input {
   font-weight: normal;

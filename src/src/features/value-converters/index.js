@@ -4,4 +4,5 @@ export function configure(aurelia, configCallback) {
   aurelia.globalResources('./date-time-format');
   aurelia.globalResources('./short-date-time-format');
   aurelia.globalResources('./console-debug');
+  aurelia.globalResources('./sum-format');
 }

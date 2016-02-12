@@ -1,8 +1,8 @@
 import {BaseColumn} from './base-column';
 
 export class BooleanColumn extends BaseColumn {
-  constructor(config, template, grid) {
-    super(config, template, grid);
+  constructor(config, template, grid, columnId) {
+    super(config, template, grid, columnId);
 
     switch (config['filter-value']) {
     case 'true':
