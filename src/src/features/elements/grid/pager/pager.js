@@ -26,7 +26,6 @@ export class Pager {
   changePage(page) {
     const oldPage = this.page;
     this.page = this.cap(page);
-
     if (oldPage !== this.page) {
       this.onPageChanged(this.page);
     }
@@ -54,6 +53,7 @@ export class Pager {
   createPages() {
     // Calc the max page number
     this.pageCount = Math.ceil(this.totalItems / this.pageSize);
+    this.page = this.cap(this.page);
 
     // Cap the number of pages to render if the count is less than number to show at once
     var numToRender = this.pageCount < this.numToShow ? this.pageCount : this.numToShow;

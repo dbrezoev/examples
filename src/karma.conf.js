@@ -29,6 +29,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+    'node_modules/es6-shim/es6-shim.min.js',
     'jspm_packages/github/components/jquery@2.2.0/jquery.min.js', 
     'src/libs/jquery.signalR.js',
     'src/libs/jubs.js'
@@ -74,7 +75,14 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: [
+        //'PhantomJS',
+        'Chrome', 
+        //'Firefox',
+        //'IE',
+        //'Safari
+    ],
+
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
