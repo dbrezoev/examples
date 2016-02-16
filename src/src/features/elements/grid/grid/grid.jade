@@ -7,7 +7,7 @@ template
       // Header table
       table.table.table-hover.table-striped.grid-header-table
         thead
-          tr(role="button", if.bind="showColumnHeaders")
+          tr(role="button", if.bind="showColumnHeaders", style="word-break: break-all;")
             th(repeat.for="$column of columns" class="${ $column.class !== '' ? $column.class : '' }")
               a(if.bind="$column.sort === true", click.trigger="$column.changeDirectionSort()") 
                 | ${ $column.heading | t}

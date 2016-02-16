@@ -1,7 +1,7 @@
 import {ViewSlot} from 'aurelia-framework';
 
 let currentZIndex = 1040;
-let transitionEvent = (function() {
+let transitionEvent = (function () {
   let t;
   let el = document.createElement('fakeelement');
 
@@ -170,6 +170,8 @@ export class DialogRenderer {
         // Left at least 30px from the top
         //modalContainer.style.top = Math.max((vh - modalContainer.offsetHeight) / 2, 30) + 'px';
         modalContainer.style.top = Math.max((vh - modalContainerHeight) / 2, 30) + 'px';
+      } else {
+        modalContainer.style.top = '5px';
       }
     };
 

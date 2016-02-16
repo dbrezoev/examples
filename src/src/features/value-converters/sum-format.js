@@ -1,5 +1,16 @@
 export class SumFormatValueConverter {
   toView(value) {
-    return `${value.amount.toFixed(2)} ${value.currency}`;
+    if(value === undefined || value === null)
+    {
+      return;
+    }
+
+    return `${value.amount.toLocaleString('bg-BG', {
+      style: 'currency',
+      currency: value.currency
+    })}`;
   }
 }
+
+
+//${value.currency}

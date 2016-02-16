@@ -95,11 +95,11 @@ export class Grid {
       let maxColumnId = this.columns[this.columns.length - 1].id;
       this.sortOptions.forEach(sortOption => {
         let isValidColumnId = sortOption.columnId >= 1 && sortOption.columnId <= maxColumnId;
-        if(isValidColumnId === false){
+        if (isValidColumnId === false) {
           throw new Error(`Invalid column id: ${sortOption.columnId}. Column Id should be an integer number between 1 and ${maxColumnId}.`);
         }
         let isValidSortDirection = sortOption.sortDirection === 'asc' || sortOption.sortDirection === 'desc';
-        if(isValidSortDirection === false){
+        if (isValidSortDirection === false) {
           throw new Error(`Invalid sort direction: '${sortOption.sortDirection}'. Sort direction should be one of the following: 'asc', 'desc' or undefined.`);
         }
       });
@@ -405,13 +405,49 @@ export class Grid {
   }
 
   syncColumnHeadersWithColumns() {
-    // Get the header row
+    // todo: find if there is need for filters to be synced too
     let headers = this.element.querySelectorAll("table>thead>tr:first-child>th");
     let filters = this.element.querySelectorAll("table>thead>tr:last-child>th");
+    let cells = this.element.querySelectorAll("table>tbody>tr:first-child>td"); // first row is enough
+    let isOverflowing = this.isBodyOverflowing();
 
-    // Get the first row from the data if there is one...
-    let cells = this.element.querySelectorAll("table>tbody>tr:first-child>td");
+    // set initially the min-width attribute to both tables
+    this._syncHeadersAndCellsMinWidth(headers, filters, cells, isOverflowing);
 
+    // todo: remove this hack if possible
+    // run algorithm for syncing 5 times...
+    for (let i = 0; i < 5; i++) {
+      this._syncHeadersAndCellsWidth(headers, filters, cells, isOverflowing);
+    }
+  }
+
+  _syncHeadersAndCellsMinWidth(headers, filters, cells, isOverflowing) {
+    for (let i = 0; i < headers.length; i++) {
+      let header = headers[i];
+      let filter = filters[i];
+      let cell = cells[i];
+
+      if (cell && header && filter) {
+        let columnMinWidth = cell.getAttribute('min-width');// || cell.getAttribute('width');
+        if (columnMinWidth) {
+          columnMinWidth = parseInt(columnMinWidth);
+
+          let headerMinWidth = columnMinWidth;
+          if ((i === headers.length - 1) && isOverflowing) {
+            headerMinWidth += this.scrollBarWidth;
+          }
+
+          if (cell.offsetWidth < columnMinWidth || header.offsetWidth < headerMinWidth || filter.offsetWidth < headerMinWidth) {
+            header.style.minWidth = `${headerMinWidth}px`;
+            filter.style.minWidth = `${headerMinWidth}px`;
+            cell.style.minWidth = `${columnMinWidth}px`;
+          }
+        }
+      }
+    }
+  }
+
+  _syncHeadersAndCellsWidth(headers, filters, cells, isOverflowing) {
     for (let i = 0; i < headers.length; i++) {
       let header = headers[i];
       let filter = filters[i];
@@ -419,25 +455,21 @@ export class Grid {
 
       if (cell && header && filter) {
         let columnWidth = cell.getAttribute('width');
-
         if (columnWidth) {
           columnWidth = parseInt(columnWidth);
         } else {
-          let tdWidth = cell.offsetWidth;
-          let thWidth = header.offsetWidth;
-          columnWidth = Math.max(tdWidth, thWidth);
+          columnWidth = cell.offsetWidth;
         }
 
         let headerWidth = columnWidth;
-        let overflow = this.isBodyOverflowing();
-        if ((i === headers.length - 1) && overflow) {
+        if ((i === headers.length - 1) && isOverflowing) {
           headerWidth += this.scrollBarWidth;
         }
 
         // Make the header the same width as the cell...
-        header.setAttribute("style", `width: ${headerWidth}px`);
-        filter.setAttribute("style", `width: ${headerWidth}px`);
-        cell.setAttribute("style", `width: ${columnWidth}px`);
+        header.style.width = `${headerWidth}px`;
+        filter.style.width = `${headerWidth}px`;
+        cell.style.width = `${columnWidth}px`;
       }
     }
   }
