@@ -10,8 +10,6 @@ export class Select3 {
   @bindable({defaultBindingMode: bindingMode.twoWay}) value = null;
   @bindable disabled = false;
   @bindable options = {};
-  @bindable caption = 'Изберете';
-  @bindable noResultsMessage = 'Няма намерени резултати';
 
   @bindable searchedItem = '';
   @bindable filteredData = [];
@@ -23,6 +21,8 @@ export class Select3 {
     id: 'id',
     name: 'name',
     modelValueBind: false,
+    caption: 'Изберете',
+    noResultsMessage: 'Няма намерени резултати',
     sort: false,
     sortField: '',
     disableClear: false,
@@ -54,6 +54,11 @@ export class Select3 {
     }
 
     let valueId = this.opts.modelValueBind ? this.value[this.opts.id] : this.value;
+
+    if(isNaN(valueId) === false && this.filteredData.every(x => Number.isInteger(x.item[this.opts.id]))){
+      valueId = parseInt(valueId, 10);
+    }
+
     let selectedDatum = this.filteredData.find(datum => {
       return datum.item[this.opts.id] === valueId;
     });
@@ -125,10 +130,12 @@ export class Select3 {
       this.selectHoveredItem();
     }
 
-    this.taskQueue.queueTask(()=> {
-      let valueInput = this.element.getElementsByClassName('select3-value-box')[0];
-      valueInput.focus();
-    });
+    if(this.value !== this.opts.emptyValue) {
+      this.taskQueue.queueTask(()=> {
+        let valueInput = this.element.getElementsByClassName('select3-value-box')[0];
+        valueInput.focus();
+      });
+    }
   }
 
   toggleDropdown() {
@@ -142,14 +149,20 @@ export class Select3 {
   }
 
   onValueInputFocus(e) {
-    if (!this.value) {
+    if (this.value === this.opts.emptyValue) {
       this.openDropdown();
     } else {
-      this.closeDropdown();
+      if(this.isDropdownOpen){
+        this.closeDropdown();
+      }
     }
   }
 
   selectItem(datum) {
+    if(datum === null || datum === undefined){
+       return;
+    }
+
     this.value = this.opts.modelValueBind ? datum.item : datum.item[this.opts.id];
     if (this.isDropdownOpen === true) {
       this.closeDropdown();

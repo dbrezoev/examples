@@ -1,6 +1,192 @@
 template
-  h1 Test Select 3
-  div.col-lg-6
+  div.container
+    h1 Test Select 3
+    div
+      h2 Basic Select3
+      div.row
+        div.col-lg-6
+          div.card
+            div.card-header
+              h4 Basic Select - id is number
+            div.card-block
+              p As value we get the id of the option.
+              p Use modelValueBind option, if you want the whole option to be returned as value.
+              div.form-group.row
+                label.col-sm-4 Select a person
+                div.col-sm-8
+                  select3(items.bind="people", value.bind="selectedPersonId")
+              div.form-group.row
+                label.col-sm-4 Selected value
+                div.col-sm-8
+                  input.form-control(type="number", readonly, value.bind="selectedPersonId")
+        div.col-lg-6
+          div.card
+            div.card-header
+              h4 Basic Select - id is guid/string
+            div.card-block
+              div.form-group.row
+                label.col-sm-4 Select a person
+                div.col-sm-8
+                  select3(items.bind="peopleWithGuids", value.bind="selectedPersonGuid")
+              div.form-group.row
+                label.col-sm-4 Selected value
+                div.col-sm-8
+                  input.form-control(type="text", readonly, value.bind="selectedPersonGuid")
+    div
+      h2 Features
+      div.row
+        div.col-lg-12
+          div.card
+            div.card-header
+              h4 Overview
+            div.card-block
+              ul
+                li Enter a query in the query input and filter the options that are displayed.
+                li Press arrow keys up and down to navigate within the options.
+                li Press Enter to select an option.
+                li Press Esc to close the dropdown.
+                li Press Tab key to go to next form element.
+                li
+                  span Go to previous form element and press Tab to go to select element.
+                  span If you have not selected a value, the dropdown will open automatically.
+                  span If an option is selected, press Enter to open the dropdown.
+                li Press the X button to clear the selected value.
+              div.form-group.row
+                label.col-sm-4 Select a person
+                div.col-sm-8
+                  select3(items.bind="people", value.bind="selectedPersonId2")
+      div.row
+        div.col-lg-12
+          div.card
+            div.card-header
+              h4 Disable
+            div.card-block
+              div.form-group.row
+                label.col-sm-4 Select a person
+                div.col-sm-8
+                  select3(items.bind="people", value.bind="selectedPersonId3", disabled)
+      div.row
+        div.col-lg-12
+          div.card
+            div.card-header
+              h4 Search
+            div.card-block
+              p
+                span You can search the options by the beginning of a word.
+                span For example, enter 'r s' in the search field.
+                span All options that have a word starting with 'r' and a word starting with 's' will be filtered.
+                span The matching parts of the words are highlighted.
+                span The entries are sorted by degree of matching the query.
+              div.form-group.row
+                label.col-sm-4 Select a person
+                div.col-sm-8
+                  select3(items.bind="people", value.bind="selectedPersonId4")
+    div
+      h2 Options
+      div.row
+        div.col-lg-12
+          div.card
+            div.card-header
+              h4 Default options
+            div.card-block
+              pre
+                code.language-js
+                  | options = {
+                  |   id: 'id',
+                  |   name: 'name',
+                  |   modelValueBind: false,
+                  |   caption: 'Изберете',
+                  |   noResultsMessage: 'Няма намерени резултати',
+                  |   sort: false,
+                  |   sortField: '',
+                  |   disableClear: false,
+                  |   emptyValue: null,
+                  |   selectHoveredOnCloseDropdown: false
+                  | };
+
+      div.row
+        div.col-lg-12
+          div.card
+            div.card-header
+              h4 Custom id and name
+            div.card-block
+              pre
+                | cats = [
+                |   { catId: 0, catName: "Hines" },
+                | ...
+                | ];
+              pre
+                | select3(items.bind="cats", value.bind="selectedCat",
+                |         options.bind="{modelValueBind: true, id: 'catId', name: 'catName'}")
+                | input(type="text", readonly, value.bind="selectedCat.catName")
+              div.form-group.row
+                label.col-sm-4 Select a cat
+                div.col-sm-8
+                  select3(items.bind="cats",
+                  value.bind="selectedCat",
+                  options.bind="{modelValueBind: true, id: 'catId', name: 'catName'}")
+              div.form-group.row
+                label.col-sm-4 Selected cat
+                div.col-sm-8
+                  input.form-control(type="text", readonly, value.bind="selectedCat.catName")
+      div.row
+        div.col-lg-12
+          div.card
+            div.card-header
+              h4 Select with model value bind
+            div.card-block
+              p options.bind="{modelValueBind: true}"
+              p Select3 returns the whole option, rather than only its id.
+              div.form-group.row
+                label.col-sm-4 Select a person
+                div.col-sm-8
+                  select3(items.bind="peopleWithGuids",
+                  value.bind="selectedPerson",
+                  options.bind="{modelValueBind: true}")
+              div.form-group.row
+                label.col-sm-4 Selected person
+                div.col-sm-8
+                  input.form-control(type="text", readonly, value.bind="selectedPerson.name")
+
+      div.row
+        div.col-lg-6
+          div.card
+            div.card-header
+              h4 Select without sort option
+            div.card-block
+              div.form-group.row
+                label.col-sm-4 Select a person
+                div.col-sm-8
+                  select3(items.bind="peopleWithB", value.bind="selectedPersonWithB")
+        div.col-lg-6
+          div.card
+            div.card-header
+              h4 Select with sort option
+            div.card-block
+              div.form-group.row
+                label.col-sm-4 Select a person
+                div.col-sm-8
+                  select3(items.bind="peopleWithB",
+                  value.bind="selectedPersonWithB",
+                  options.bind="{sort: true}")
+      div.row
+        div.col-lg-12
+          div.card
+            div.card-header
+              h4 Select with custom caption and noResultsMessage
+            div.card-block
+              p options.bind="{caption: 'Choose me please', noResultsMessage: 'No data matches your query.'}"
+              p You can also specify an i18n string.
+              div.form-group.row
+                label.col-sm-4 Select a person
+                div.col-sm-8
+                  select3(items.bind="people",
+                  value.bind="selectedPerson7",
+                  options.bind="{caption: 'Choose me please', noResultsMessage: 'No data matches your query.'}")
+
+
+
+  //div.col-lg-6
     div.form-group.row
       label.form-control-label.col-lg-3 Input
       div.col-lg-9
@@ -13,7 +199,7 @@ template
       label.form-control-label.col-lg-3 People
       div.col-lg-9
         select3(items.bind="people",
-        value.two-way="selectedPerson",
+        value.bind="selectedPerson",
         options.bind="{modelValueBind:true, sort: true}")
     div.form-group.row
       label.form-control-label.col-lg-3 Selected person name

@@ -6,7 +6,7 @@ template
         value.bind="selectedItemName",
         readonly,
         disabled.bind="disabled",
-        placeholder.bind="caption",
+        placeholder.bind="opts.caption",
         focus.trigger="onValueInputFocus()",
         mousedown.trigger="toggleDropdown()",
         keydown.trigger="onValueInputKeyPressed($event)")
@@ -25,7 +25,7 @@ template
         keydown.trigger="onSearchInputKeyPressed($event)",
         focusout.trigger="closeDropdown()")
       ul
-        li.select3-no-results-message(if.bind="filteredData.length === 0") ${noResultsMessage}
+        li.select3-no-results-message(if.bind="filteredData.length === 0") ${opts.noResultsMessage}
         li(repeat.for="datum of filteredData",
           mousedown.trigger="selectItem(datum)",
           innerhtml.bind="datum.highlightedName",
