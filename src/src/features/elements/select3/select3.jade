@@ -6,7 +6,7 @@ template
         value.bind="selectedItemName",
         readonly,
         disabled.bind="disabled",
-        placeholder.bind="opts.caption",
+        placeholder="${opts.caption | t}",
         focus.trigger="onValueInputFocus()",
         mousedown.trigger="toggleDropdown()",
         keydown.trigger="onValueInputKeyPressed($event)")
